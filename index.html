@@ -1,615 +1,473 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chisombili Aniebue — Business Intelligence & Data Analyst</title>
-    <!-- Google Fonts: Playfair Display (Serif) & Inter (Sans-Serif) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-    <style>
-        /* =================================================================
-           Executive Portfolio Design System
-           Restrained palette, generous whitespace, authoritative typography
-           ================================================================ */
-        :root {
-            --bg-primary: #0A0D14;
-            --bg-surface: #121722;
-            --bg-card: #181F2E;
-            --text-primary: #F3F4F6;
-            --text-muted: #9CA3AF;
-            --accent: #C5A059;
-            --accent-hover: #D4B26C;
-            --border-subtle: rgba(255, 255, 255, 0.08);
-            --font-serif: 'Playfair Display', Georgia, serif;
-            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            --max-width: 1200px;
-            --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chisombili Aniebue — Business Intelligence & Data Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ===================================================================
+     Design tokens — "Analyst's ledger" system
+     Paper ground · navy ink · teal + amber data accents used sparingly
+     Fraunces (editorial serif, headings) / Inter (body) / IBM Plex Mono (data)
+     =================================================================== */
+  :root{
+    --paper:      #F2F3F0;
+    --paper-deep: #E9EBE6;
+    --card:       #FFFFFF;
+    --ink:        #12161C;
+    --ink-soft:   #565F6B;
+    --line:       #D7DBD4;
+    --line-strong:#B9C0B8;
+    --teal:       #0E6B64;
+    --teal-deep:  #0A4C47;
+    --amber:      #B8752B;
+    --font-serif: 'Fraunces', Georgia, serif;
+    --font-sans:  'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono:  'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --max: 1180px;
+    --ease: cubic-bezier(.16,1,.3,1);
+  }
 
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+  }
 
-        html {
-            scroll-behavior: smooth;
-            font-size: 16px;
-        }
+  body{
+    background:
+      linear-gradient(var(--paper),var(--paper)) fixed,
+      repeating-linear-gradient(to right, rgba(18,22,28,0.035) 0 1px, transparent 1px 88px),
+      repeating-linear-gradient(to bottom, rgba(18,22,28,0.035) 0 1px, transparent 1px 88px);
+    background-blend-mode:normal;
+    color:var(--ink);
+    font-family:var(--font-sans);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
 
-        body {
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            font-family: var(--font-sans);
-            line-height: 1.7;
-            -webkit-font-smoothing: antialiased;
-        }
+  a{color:inherit}
+  :focus-visible{outline:2px solid var(--teal);outline-offset:3px}
 
-        h1, h2, h3, h4, .brand-logo, .stat-number, .timeline-dates {
-            font-family: var(--font-serif);
-            font-weight: 400;
-        }
+  .container{width:100%;max-width:var(--max);margin:0 auto;padding:0 2rem}
 
-        .container {
-            width: 100%;
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:.72rem;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    color:var(--teal-deep);
+  }
 
-        .btn {
-            display: inline-block;
-            padding: 0.875rem 2rem;
-            font-family: var(--font-sans);
-            font-size: 0.875rem;
-            font-weight: 500;
-            text-decoration: none;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            transition: var(--transition-smooth);
-            cursor: pointer;
-            border: 1px solid transparent;
-        }
+  .btn{
+    display:inline-flex;align-items:center;gap:.5rem;
+    padding:.85rem 1.6rem;
+    font-family:var(--font-sans);font-size:.85rem;font-weight:600;
+    text-decoration:none;letter-spacing:.02em;
+    border:1px solid var(--ink);
+    transition:all .25s var(--ease);
+  }
+  .btn-primary{background:var(--ink);color:var(--paper)}
+  .btn-primary:hover{background:var(--teal-deep);border-color:var(--teal-deep)}
+  .btn-secondary{background:transparent;color:var(--ink);border-color:var(--line-strong)}
+  .btn-secondary:hover{border-color:var(--ink);background:var(--card)}
 
-        .btn-primary {
-            background-color: var(--accent);
-            color: var(--bg-primary);
-            border-color: var(--accent);
-        }
+  /* ---------- Header ---------- */
+  .site-header{
+    position:fixed;top:0;left:0;width:100%;z-index:100;
+    background:rgba(242,243,240,0.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    padding:1.1rem 0;
+  }
+  .nav-container{display:flex;justify-content:space-between;align-items:center}
+  .brand-logo{
+    font-family:var(--font-serif);font-size:1.3rem;font-weight:500;
+    text-decoration:none;letter-spacing:.01em;color:var(--ink);
+    display:flex;align-items:center;gap:.5rem;
+  }
+  .brand-mark{
+    width:9px;height:9px;background:var(--teal);display:inline-block;
+    transform:rotate(45deg);
+  }
+  .nav-links{display:flex;gap:2.2rem;align-items:center}
+  .nav-links a{
+    color:var(--ink-soft);text-decoration:none;font-size:.85rem;font-weight:500;
+    transition:color .2s var(--ease);
+  }
+  .nav-links a:hover{color:var(--ink)}
+  .nav-cta{color:var(--teal-deep) !important;position:relative}
+  .nav-cta::after{
+    content:"";position:absolute;left:0;bottom:-4px;width:100%;height:1px;background:var(--teal-deep);
+  }
 
-        .btn-primary:hover {
-            background-color: var(--accent-hover);
-            border-color: var(--accent-hover);
-        }
+  /* ---------- Hero ---------- */
+  .hero-section{padding:9.5rem 0 5rem}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:4rem;align-items:center}
+  .hero-kicker{display:block;margin-bottom:1.4rem}
+  .hero-title{
+    font-family:var(--font-serif);font-weight:500;
+    font-size:clamp(2.6rem,5vw,3.9rem);line-height:1.05;letter-spacing:-.01em;
+    margin-bottom:1.2rem;
+  }
+  .hero-title em{font-style:italic;font-weight:400;color:var(--teal-deep)}
+  .hero-subtitle{
+    font-size:1.08rem;color:var(--ink-soft);max-width:520px;margin-bottom:2.2rem;
+  }
+  .hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
 
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--text-primary);
-            border-color: var(--border-subtle);
-        }
+  /* Signature widget: illustrative dashboard module */
+  .dash-card{
+    background:var(--card);border:1px solid var(--line-strong);
+    box-shadow:0 1px 0 var(--line-strong), 0 24px 48px -28px rgba(18,22,28,.25);
+  }
+  .dash-head{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:1rem 1.25rem;border-bottom:1px solid var(--line);
+  }
+  .dash-head-title{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+  .dash-dots{display:flex;gap:.35rem}
+  .dash-dots span{width:6px;height:6px;border-radius:50%;background:var(--line-strong);display:block}
+  .dash-body{padding:1.25rem}
+  .dash-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);margin-bottom:1.1rem;border:1px solid var(--line)}
+  .dash-kpi{background:var(--card);padding:.85rem .9rem}
+  .dash-kpi-num{font-family:var(--font-mono);font-size:1.15rem;color:var(--teal-deep);display:block}
+  .dash-kpi-label{font-size:.68rem;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.04em}
+  .dash-caption{
+    font-family:var(--font-mono);font-size:.68rem;color:var(--ink-soft);
+    padding-top:.9rem;border-top:1px dashed var(--line);
+  }
 
-        .btn-secondary:hover {
-            border-color: var(--text-muted);
-        }
+  /* ---------- Ledger strip (real stats) ---------- */
+  .ledger-section{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--paper-deep)}
+  .ledger-row{display:grid;grid-template-columns:repeat(4,1fr)}
+  .ledger-item{
+    padding:1.9rem 1.5rem;
+    border-right:1px solid var(--line);
+  }
+  .ledger-item:last-child{border-right:none}
+  .ledger-num{font-family:var(--font-mono);font-size:1.7rem;color:var(--ink);display:block;margin-bottom:.3rem}
+  .ledger-label{font-size:.78rem;color:var(--ink-soft)}
 
-        /* Header */
-        .site-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 100;
-            background-color: rgba(10, 13, 20, 0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-subtle);
-            padding: 1.25rem 0;
-        }
+  /* ---------- About ---------- */
+  .about-section{padding:7rem 0}
+  .grid-2{display:grid;grid-template-columns:.85fr 1.4fr;gap:5rem;align-items:start}
+  .section-title{
+    font-family:var(--font-serif);font-weight:500;
+    font-size:clamp(1.8rem,2.6vw,2.3rem);line-height:1.2;margin-bottom:.9rem;
+  }
+  .section-subtitle{color:var(--ink-soft);font-size:1rem}
+  .about-copy p{margin-bottom:1.35rem;color:var(--ink-soft);font-size:1.02rem}
+  .about-copy p:first-of-type{color:var(--ink);font-size:1.1rem}
 
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+  .chip-row{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.6rem}
+  .chip{
+    font-family:var(--font-mono);font-size:.75rem;color:var(--ink);
+    border:1px solid var(--line-strong);padding:.4rem .75rem;background:var(--card);
+  }
 
-        .brand-logo {
-            font-size: 1.35rem;
-            color: var(--text-primary);
-            text-decoration: none;
-            letter-spacing: 0.05em;
-        }
+  /* ---------- Experience ---------- */
+  .experience-section{padding:7rem 0}
+  .section-title-wrapper{margin-bottom:3.5rem;display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap}
+  .timeline{border-top:1px solid var(--line)}
+  .timeline-item{
+    display:grid;grid-template-columns:200px 1fr;gap:3rem;
+    padding:2.75rem 0;border-bottom:1px solid var(--line);position:relative;
+  }
+  .timeline-meta{position:relative;padding-left:1.4rem}
+  .timeline-meta::before{
+    content:"";position:absolute;left:0;top:.35rem;width:8px;height:8px;background:var(--teal);
+  }
+  .timeline-dates{
+    display:block;font-family:var(--font-mono);font-size:.92rem;color:var(--ink);margin-bottom:.4rem;
+  }
+  .timeline-company{font-size:.82rem;color:var(--ink-soft)}
+  .timeline-content h3{font-family:var(--font-serif);font-weight:500;font-size:1.35rem;margin-bottom:.8rem}
+  .timeline-summary{color:var(--ink-soft);margin-bottom:1.1rem;font-size:.98rem}
+  .timeline-content ul{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+  .timeline-content li{position:relative;padding-left:1.2rem;color:var(--ink-soft);font-size:.94rem}
+  .timeline-content li::before{content:"·";position:absolute;left:0;color:var(--teal-deep);font-weight:700}
 
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            align-items: center;
-        }
+  /* ---------- Projects ---------- */
+  .advisory-section{padding:7rem 0;background:var(--paper-deep);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .advisory-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+  .advisory-card{
+    background:var(--card);padding:2rem;border:1px solid var(--line-strong);
+    transition:transform .25s var(--ease), box-shadow .25s var(--ease);
+  }
+  .advisory-card:hover{transform:translateY(-3px);box-shadow:0 16px 32px -20px rgba(18,22,28,.28)}
+  .advisory-role{
+    display:inline-block;font-family:var(--font-mono);font-size:.68rem;
+    text-transform:uppercase;letter-spacing:.06em;color:var(--teal-deep);
+    margin-bottom:1rem;padding-bottom:.4rem;border-bottom:1px solid var(--line);
+  }
+  .advisory-card h4{font-family:var(--font-serif);font-weight:500;font-size:1.2rem;margin-bottom:.65rem}
+  .advisory-desc{color:var(--ink-soft);font-size:.94rem}
 
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.875rem;
-            transition: var(--transition-smooth);
-        }
+  /* ---------- Contact ---------- */
+  .contact-section{padding:8rem 0}
+  .contact-intro{max-width:640px;margin:0 auto;text-align:center}
+  .contact-intro p{color:var(--ink-soft);margin:1.3rem 0 2.3rem;font-size:1.02rem}
+  .contact-direct-links{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}
 
-        .nav-links a:hover {
-            color: var(--text-primary);
-        }
+  /* ---------- Footer ---------- */
+  .site-footer{padding:2.5rem 0;border-top:1px solid var(--line);font-size:.82rem;color:var(--ink-soft)}
+  .footer-container{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem}
+  .footer-note{font-family:var(--font-mono);font-size:.72rem}
 
-        .nav-cta {
-            color: var(--accent) !important;
-            border-bottom: 1px solid var(--accent);
-            padding-bottom: 2px;
-        }
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+  .reveal.in{opacity:1;transform:translateY(0)}
 
-        /* Hero */
-        .hero-section {
-            padding: 14rem 0 8rem 0;
-            min-height: 90vh;
-            display: flex;
-            align-items: center;
-        }
-
-        .hero-content {
-            max-width: 800px;
-        }
-
-        .hero-kicker {
-            display: block;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--accent);
-            margin-bottom: 1.5rem;
-            font-weight: 500;
-        }
-
-        .hero-title {
-            font-size: clamp(3rem, 6vw, 5rem);
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.02em;
-        }
-
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: var(--text-muted);
-            margin-bottom: 2.5rem;
-            max-width: 650px;
-        }
-
-        .hero-actions {
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        /* Highlights / Stat Grid */
-        .highlights-section {
-            padding: 4rem 0 8rem 0;
-            border-bottom: 1px solid var(--border-subtle);
-        }
-
-        .stat-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-        }
-
-        .stat-card {
-            background-color: var(--bg-surface);
-            padding: 2.5rem 2rem;
-            border: 1px solid var(--border-subtle);
-        }
-
-        .stat-number {
-            display: block;
-            font-size: 2.75rem;
-            color: var(--accent);
-            margin-bottom: 0.5rem;
-            line-height: 1;
-        }
-
-        .stat-label {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        /* About */
-        .about-section {
-            padding: 10rem 0;
-        }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            gap: 6rem;
-            align-items: start;
-        }
-
-        .section-title {
-            font-size: clamp(2rem, 3vw, 2.75rem);
-            line-height: 1.2;
-            margin-bottom: 1rem;
-        }
-
-        .section-subtitle {
-            color: var(--text-muted);
-            font-size: 1.05rem;
-        }
-
-        .about-copy p {
-            margin-bottom: 1.5rem;
-            color: var(--text-muted);
-            font-size: 1.05rem;
-        }
-
-        .about-copy p:first-of-type {
-            color: var(--text-primary);
-            font-size: 1.15rem;
-        }
-
-        /* Experience */
-        .experience-section {
-            padding: 8rem 0;
-            background-color: var(--bg-surface);
-            border-top: 1px solid var(--border-subtle);
-            border-bottom: 1px solid var(--border-subtle);
-        }
-
-        .section-title-wrapper {
-            margin-bottom: 5rem;
-        }
-
-        .timeline {
-            display: flex;
-            flex-direction: column;
-            gap: 4rem;
-        }
-
-        .timeline-item {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 4rem;
-            padding-bottom: 4rem;
-            border-bottom: 1px solid var(--border-subtle);
-        }
-
-        .timeline-item:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-
-        .timeline-dates {
-            display: block;
-            font-size: 1.1rem;
-            color: var(--accent);
-            margin-bottom: 0.5rem;
-        }
-
-        .timeline-company {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .timeline-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .timeline-summary {
-            color: var(--text-muted);
-            margin-bottom: 1.25rem;
-        }
-
-        .timeline-content ul {
-            list-style-type: none;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        .timeline-content li {
-            position: relative;
-            padding-left: 1.25rem;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        .timeline-content li::before {
-            content: "—";
-            position: absolute;
-            left: 0;
-            color: var(--accent);
-        }
-
-        /* Advisory / Projects Section */
-        .advisory-section {
-            padding: 10rem 0;
-        }
-
-        .advisory-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-
-        .advisory-card {
-            background-color: var(--bg-card);
-            padding: 2.5rem;
-            border: 1px solid var(--border-subtle);
-            transition: var(--transition-smooth);
-        }
-
-        .advisory-card:hover {
-            border-color: rgba(197, 160, 89, 0.3);
-        }
-
-        .advisory-role {
-            display: block;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--accent);
-            margin-bottom: 1rem;
-        }
-
-        .advisory-card h4 {
-            font-size: 1.25rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .advisory-desc {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        /* Contact */
-        .contact-section {
-            padding: 12rem 0;
-            background-color: var(--bg-surface);
-            border-top: 1px solid var(--border-subtle);
-        }
-
-        .contact-intro p {
-            color: var(--text-muted);
-            margin: 1.5rem 0 2.5rem 0;
-            font-size: 1.05rem;
-        }
-
-        /* Footer */
-        .site-footer {
-            padding: 3rem 0;
-            border-top: 1px solid var(--border-subtle);
-            text-align: center;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        .footer-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .footer-note {
-            font-style: italic;
-        }
-
-        @media (max-width: 1024px) {
-            .stat-grid { grid-template-columns: repeat(2, 1fr); }
-            .grid-2, .timeline-item { grid-template-columns: 1fr; gap: 3rem; }
-            .advisory-grid { grid-template-columns: 1fr; }
-        }
-    </style>
+  @media (max-width:1024px){
+    .hero-grid{grid-template-columns:1fr}
+    .ledger-row{grid-template-columns:repeat(2,1fr)}
+    .ledger-item:nth-child(2){border-right:none}
+    .grid-2,.timeline-item{grid-template-columns:1fr;gap:1.5rem}
+    .advisory-grid{grid-template-columns:1fr}
+    .timeline-meta{padding-left:1.4rem}
+  }
+</style>
 </head>
 <body>
 
-    <!-- Header Navigation -->
-    <header class="site-header">
-        <div class="container nav-container">
-            <a href="#" class="brand-logo">C. Aniebue</a>
-            <nav class="nav-links">
-                <a href="#about">About</a>
-                <a href="#experience">Experience</a>
-                <a href="#highlights">Highlights</a>
-                <a href="#projects">Key Projects</a>
-                <a href="#contact" class="nav-cta">Connect</a>
-            </nav>
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="#" class="brand-logo"><span class="brand-mark"></span>C. Aniebue</a>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact" class="nav-cta">Connect</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero-section">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">Business Intelligence &amp; Data Analytics</span>
+          <h1 class="hero-title">Chisombili<br>Ani<em>ebue</em></h1>
+          <p class="hero-subtitle">I turn scattered operational data into dashboards people actually use — built on SQL, Power BI, and a background in accounting that keeps the numbers honest.</p>
+          <div class="hero-actions">
+            <a href="#contact" class="btn btn-primary">Get in touch</a>
+            <a href="#experience" class="btn btn-secondary">See my work</a>
+          </div>
         </div>
-    </header>
 
-    <main>
-        <!-- Hero Section -->
-        <section class="hero-section">
-            <div class="container">
-                <div class="hero-content">
-                    <span class="hero-kicker">Business Intelligence & Data Analytics</span>
-                    <h1 class="hero-title">Chisombili Aniebue</h1>
-                    <p class="hero-subtitle">Translating complex datasets into actionable operational metrics, automated analytical reporting, and enterprise-grade business intelligence solutions.</p>
-                    <div class="hero-actions">
-                        <a href="#contact" class="btn btn-primary">Direct Inquiry</a>
-                        <a href="#experience" class="btn btn-secondary">Professional Record</a>
-                    </div>
-                </div>
+        <div class="dash-card reveal">
+          <div class="dash-head">
+            <span class="dash-head-title">Ops Overview — Q3</span>
+            <div class="dash-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="dash-body">
+            <div class="dash-kpis">
+              <div class="dash-kpi">
+                <span class="dash-kpi-num">92%</span>
+                <span class="dash-kpi-label">On-time PO</span>
+              </div>
+              <div class="dash-kpi">
+                <span class="dash-kpi-num">+18%</span>
+                <span class="dash-kpi-label">Upsell rate</span>
+              </div>
+              <div class="dash-kpi">
+                <span class="dash-kpi-num">1.4d</span>
+                <span class="dash-kpi-label">Ticket SLA</span>
+              </div>
             </div>
-        </section>
-
-        <!-- Highlights Section -->
-        <section id="highlights" class="highlights-section">
-            <div class="container">
-                <div class="stat-grid">
-                    <div class="stat-card">
-                        <span class="stat-number">3.93</span>
-                        <span class="stat-label">B.Sc GPA (First Class/2:1 Upper)</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-number">100%</span>
-                        <span class="stat-label">Intern-to-Full-Time Conversion</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-number">End-to-End</span>
-                        <span class="stat-label">BI & Dashboard Solutions Built</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-number">Multi-Dept</span>
-                        <span class="stat-label">Procurement, Finance & Ops Impact</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- About Section -->
-        <section id="about" class="about-section">
-            <div class="container grid-2">
-                <div class="section-header-col">
-                    <h2 class="section-title">Analytical Rigor & Financial Acumen</h2>
-                    <p class="section-subtitle">Bridging raw data sources with executive decision-making frameworks.</p>
-                </div>
-                <div class="about-copy">
-                    <p>Chisombili Aniebue is a results-driven Business Intelligence & Data Analyst based in Lagos, Nigeria[cite: 1]. Combining a strong academic foundation in accounting (B.Sc from University of Abuja with a 3.93 GPA)[cite: 1] with advanced data modeling capabilities, she specializes in transforming fragmented operational information into intuitive, decision-ready intelligence.</p>
-                    <p>Recognized for high-impact contributions during her internship at FiberOne Broadband, she earned a swift promotion to a full-time analytics role[cite: 1]. Her technical skillset spans SQL, Advanced Power BI, DAX, Power Query, R, and automated reporting workflows via Microsoft Power Automate[cite: 1].</p>
-                    <p>She excels at cross-functional collaboration, ensuring stringent data governance, accuracy, and efficiency across financial and operational reporting landscapes[cite: 1].</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Experience Section -->
-        <section id="experience" class="experience-section">
-            <div class="container">
-                <div class="section-title-wrapper">
-                    <h2 class="section-title">Professional Track Record</h2>
-                </div>
-                
-                <div class="timeline">
-                    <!-- Experience Item 1 -->
-                    <div class="timeline-item">
-                        <div class="timeline-meta">
-                            <span class="timeline-dates">10/2025 — Present[cite: 1]</span>
-                            <span class="timeline-company">FiberOne Broadband[cite: 1]</span>
-                        </div>
-                        <div class="timeline-content">
-                            <h3>Business Intelligence & Data Analyst</h3>
-                            <p class="timeline-summary">Designing end-to-end business intelligence platforms and robust analytical reporting frameworks.</p>
-                            <ul>
-                                <li>Develop and maintain Power BI dashboards delivering critical insights across procurement, finance, customer operations, and project reporting[cite: 1].</li>
-                                <li>Extract, clean, and validate data across multi-source operational pipelines utilizing SQL, Power Query, and R[cite: 1].</li>
-                                <li>Implement automated reporting solutions via Microsoft Power Automate and R to eliminate manual bottlenecks and boost efficiency[cite: 1].</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Experience Item 2 -->
-                    <div class="timeline-item">
-                        <div class="timeline-meta">
-                            <span class="timeline-dates">06/2025 — 09/2025[cite: 1]</span>
-                            <span class="timeline-company">FiberOne Broadband Limited[cite: 1]</span>
-                        </div>
-                        <div class="timeline-content">
-                            <h3>Data Analyst Intern</h3>
-                            <p class="timeline-summary">Provided core foundational analytical support and automated recurring data processing tasks.</p>
-                            <ul>
-                                <li>Assisted in building interactive Power BI dashboards and cleaning complex datasets via Power Query and Excel[cite: 1].</li>
-                                <li>Executed SQL-driven data extraction workflows to streamline active business requirements[cite: 1].</li>
-                                <li>Earned a direct conversion to full-time analyst following exceptional performance and high operational delivery[cite: 1].</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Experience Item 3 -->
-                    <div class="timeline-item">
-                        <div class="timeline-meta">
-                            <span class="timeline-dates">09/2023 — 01/2025[cite: 1]</span>
-                            <span class="timeline-company">African Institute for Technology and Innovation (AITI)[cite: 1]</span>
-                        </div>
-                        <div class="timeline-content">
-                            <h3>Accountant</h3>
-                            <p class="timeline-summary">Managed financial records, internal controls, and corporate reporting routines.</p>
-                            <ul>
-                                <li>Maintained precise ledger reconciliations and managed accounts receivable processes to ensure optimal cash flow compliance[cite: 1].</li>
-                                <li>Generated financial reports supporting leadership oversight and month-end closing procedures[cite: 1].</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects" class="advisory-section">
-            <div class="container">
-                <div class="section-title-wrapper">
-                    <h2 class="section-title">Core Projects & Solutions</h2>
-                    <p class="section-subtitle">Showcasing dashboard architectures and operational tracking systems.</p>
-                </div>
-                <div class="advisory-grid">
-                    <div class="advisory-card">
-                        <span class="advisory-role">FiberOne Broadband</span>
-                        <h4>Executive Dashboard</h4>
-                        <p class="advisory-desc">Built procurement performance metrics, purchase order analytics, KPI scorecards, and advanced drill-through visual reports via DAX[cite: 1].</p>
-                    </div>
-                    <div class="advisory-card">
-                        <span class="advisory-role">FiberOne Broadband</span>
-                        <h4>Customer Upsell Analytics</h4>
-                        <p class="advisory-desc">Integrated multi-source operational datasets to flag customer upgrade opportunities and deliver scheduled automated insights[cite: 1].</p>
-                    </div>
-                    <div class="advisory-card">
-                        <span class="advisory-role">Personal BI Initiative</span>
-                        <h4>Telecoms Performance Tracker</h4>
-                        <p class="advisory-desc">Designed regional tracking scorecards monitoring distribution efficiency, revenue yields, support tickets, and churn variables[cite: 1].</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="contact-section">
-            <div class="container contact-container" style="max-width: 800px; text-align: center;">
-                <div class="contact-intro">
-                    <h2 class="section-title">Let's Connect</h2>
-                    <p>Actively exploring opportunities in business intelligence, data analysis, and technical strategy. Reach out directly via email or LinkedIn.</p>
-                    
-                    <div class="contact-direct-links" style="margin-top: 2rem; display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
-                        <a href="mailto:aniebuechisombili@gmail.com" class="btn btn-primary">Email Me Directly</a>
-                        <a href="https://linkedin.com/in/chisombili-aniebue-165615241" target="_blank" rel="noopener" class="btn btn-secondary">Connect on LinkedIn</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="site-footer">
-        <div class="container footer-container">
-            <p>&copy; <span id="currentYear"></span> Chisombili Aniebue. All rights reserved.</p>
-            <p class="footer-note">Designed for minimal presence and absolute clarity.</p>
+            <svg viewBox="0 0 400 130" width="100%" height="130" role="img" aria-label="Illustrative trend chart">
+              <line x1="0" y1="32" x2="400" y2="32" stroke="#D7DBD4" stroke-width="1"/>
+              <line x1="0" y1="68" x2="400" y2="68" stroke="#D7DBD4" stroke-width="1"/>
+              <line x1="0" y1="104" x2="400" y2="104" stroke="#D7DBD4" stroke-width="1"/>
+              <polyline points="0,96 50,84 100,90 150,64 200,70 250,42 300,52 350,20 400,28"
+                        fill="none" stroke="#0E6B64" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <polyline points="0,110 50,108 100,100 150,102 200,86 250,90 300,72 350,76 400,60"
+                        fill="none" stroke="#B8752B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1 5"/>
+              <circle cx="400" cy="28" r="3.5" fill="#0E6B64"/>
+            </svg>
+            <p class="dash-caption">Representative dashboard module — illustrative data, styled after report layouts built for procurement &amp; customer ops.</p>
+          </div>
         </div>
-    </footer>
+      </div>
+    </section>
 
-    <script>
-        // Automatic Year Update & Scroll Effects
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    <!-- Real stats -->
+    <section class="ledger-section">
+      <div class="container">
+        <div class="ledger-row">
+          <div class="ledger-item">
+            <span class="ledger-num">3.93</span>
+            <span class="ledger-label">B.Sc GPA, Accounting — University of Abuja</span>
+          </div>
+          <div class="ledger-item">
+            <span class="ledger-num">100%</span>
+            <span class="ledger-label">Intern-to-full-time conversion</span>
+          </div>
+          <div class="ledger-item">
+            <span class="ledger-num">4</span>
+            <span class="ledger-label">Departments served: procurement, finance, ops, customer</span>
+          </div>
+          <div class="ledger-item">
+            <span class="ledger-num">01</span>
+            <span class="ledger-label">Analytics function built end-to-end at FiberOne</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        const observer = new IntersectionObserver((entries, observerInstance) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                    observerInstance.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
+    <!-- About -->
+    <section id="about" class="about-section">
+      <div class="container grid-2">
+        <div>
+          <h2 class="section-title reveal">Where the numbers meet the decision</h2>
+          <p class="section-subtitle reveal">Accounting discipline, applied to business intelligence.</p>
+        </div>
+        <div class="about-copy reveal">
+          <p>Chisombili Aniebue is a Business Intelligence &amp; Data Analyst based in Lagos, Nigeria. She trained as an accountant — B.Sc in Accounting from the University of Abuja, 3.93 GPA — before moving into analytics, and that background shows up in how she treats data: reconciled, sourced, and traceable before it ever reaches a dashboard.</p>
+          <p>At FiberOne Broadband, she started as a data analyst intern and was converted to full-time within four months. Today she builds and maintains the Power BI reporting that procurement, finance, and customer operations rely on day to day — from raw extraction through to the KPI scorecards leadership reads.</p>
+          <p>She works across SQL, Power BI, DAX, Power Query, R, and Power Automate, and is most interested in the handoff between clean data and a decision someone can actually act on.</p>
+          <div class="chip-row">
+            <span class="chip">SQL</span>
+            <span class="chip">Power BI</span>
+            <span class="chip">DAX</span>
+            <span class="chip">Power Query</span>
+            <span class="chip">R</span>
+            <span class="chip">Power Automate</span>
+            <span class="chip">Excel</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        document.querySelectorAll('section').forEach(sec => {
-            sec.style.opacity = '0';
-            sec.style.transform = 'translateY(20px)';
-            sec.style.transition = 'opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
-            observer.observe(sec);
+    <!-- Experience -->
+    <section id="experience" class="experience-section">
+      <div class="container">
+        <div class="section-title-wrapper">
+          <h2 class="section-title reveal">Professional record</h2>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item reveal">
+            <div class="timeline-meta">
+              <span class="timeline-dates">10/2025 — Present</span>
+              <span class="timeline-company">FiberOne Broadband</span>
+            </div>
+            <div class="timeline-content">
+              <h3>Business Intelligence &amp; Data Analyst</h3>
+              <p class="timeline-summary">Owns the end-to-end BI platform and reporting framework used across the business.</p>
+              <ul>
+                <li>Build and maintain Power BI dashboards covering procurement, finance, customer operations, and project reporting.</li>
+                <li>Extract, clean, and validate data across multi-source pipelines using SQL, Power Query, and R.</li>
+                <li>Automate recurring reporting with Power Automate and R, replacing manual, spreadsheet-driven processes.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div class="timeline-meta">
+              <span class="timeline-dates">06/2025 — 09/2025</span>
+              <span class="timeline-company">FiberOne Broadband</span>
+            </div>
+            <div class="timeline-content">
+              <h3>Data Analyst Intern</h3>
+              <p class="timeline-summary">Provided foundational analytical support and automated recurring data tasks.</p>
+              <ul>
+                <li>Built interactive Power BI dashboards and cleaned complex datasets with Power Query and Excel.</li>
+                <li>Ran SQL-driven data extraction to support live business requirements.</li>
+                <li>Converted to full-time analyst after four months, based on delivery and performance.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div class="timeline-meta">
+              <span class="timeline-dates">09/2023 — 01/2025</span>
+              <span class="timeline-company">African Institute for Technology and Innovation (AITI)</span>
+            </div>
+            <div class="timeline-content">
+              <h3>Accountant</h3>
+              <p class="timeline-summary">Managed financial records, internal controls, and corporate reporting.</p>
+              <ul>
+                <li>Maintained ledger reconciliations and accounts receivable to keep cash flow accurate and compliant.</li>
+                <li>Prepared financial reports supporting leadership oversight and month-end close.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="advisory-section">
+      <div class="container">
+        <div class="section-title-wrapper">
+          <h2 class="section-title reveal">Selected work</h2>
+          <p class="section-subtitle reveal">Dashboards and reporting systems, from problem to delivered report.</p>
+        </div>
+        <div class="advisory-grid">
+          <div class="advisory-card reveal">
+            <span class="advisory-role">FiberOne Broadband</span>
+            <h4>Executive dashboard</h4>
+            <p class="advisory-desc">Procurement performance metrics, purchase-order analytics, and KPI scorecards, with drill-through detail built in DAX.</p>
+          </div>
+          <div class="advisory-card reveal">
+            <span class="advisory-role">FiberOne Broadband</span>
+            <h4>Customer upsell analytics</h4>
+            <p class="advisory-desc">Combined operational data sources to flag upgrade opportunities and pushed the results out as scheduled, automated reports.</p>
+          </div>
+          <div class="advisory-card reveal">
+            <span class="advisory-role">Personal initiative</span>
+            <h4>Telecoms performance tracker</h4>
+            <p class="advisory-desc">A regional scorecard tracking distribution efficiency, revenue yield, support tickets, and churn — built independently.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact-section">
+      <div class="container">
+        <div class="contact-intro">
+          <h2 class="section-title reveal">Let's talk</h2>
+          <p class="reveal">Open to roles in business intelligence, data analysis, and analytics strategy. Reach out by email or LinkedIn — I reply quickly.</p>
+          <div class="contact-direct-links reveal">
+            <a href="mailto:aniebuechisombili@gmail.com" class="btn btn-primary">Email me</a>
+            <a href="https://linkedin.com/in/chisombili-aniebue-165615241" target="_blank" rel="noopener" class="btn btn-secondary">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <p>© <span id="currentYear"></span> Chisombili Aniebue. All rights reserved.</p>
+      <p class="footer-note">LAGOS, NG</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(!prefersReduced && 'IntersectionObserver' in window){
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            entry.target.classList.add('in');
+            obs.unobserve(entry.target);
+          }
         });
-    </script>
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    } else {
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+    }
+  </script>
 </body>
 </html>
