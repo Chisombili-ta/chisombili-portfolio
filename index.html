@@ -6,31 +6,30 @@
 <title>Chisombili Aniebue — Business Intelligence & Data Analyst</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  /* ===================================================================
-     Design tokens — "Analyst's ledger" system
-     Paper ground · navy ink · teal + amber data accents used sparingly
-     =================================================================== */
   :root{
     --paper:      #F2F3F0;
     --paper-deep: #E9EBE6;
     --card:       #FFFFFF;
-    --ink:        #12161C;
+    --ink:        #0D1015;
     --ink-soft:   #565F6B;
     --line:       #D7DBD4;
     --line-strong:#B9C0B8;
     --teal:       #0E6B64;
     --teal-deep:  #0A4C47;
+    --teal-bright:#17C9B8;
     --teal-wash:  #E4EEED;
     --amber:      #B8752B;
-    --navy-chrome:#12203A;
+    --amber-bright:#F0A93C;
+    --navy:       #0B1425;
+    --navy-2:     #101D34;
     --navy-card:  #1E3A66;
     --navy-card-2:#254776;
-    --sev-critical:#D5573B;
-    --sev-high:   #E38B3C;
-    --sev-medium: #E3B23C;
-    --sev-low:    #4C9E6E;
+    --sev-critical:#E15B44;
+    --sev-high:   #EE9142;
+    --sev-medium: #EFC24C;
+    --sev-low:    #4FAE7A;
     --font-serif: 'Fraunces', Georgia, serif;
     --font-sans:  'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-mono:  'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -48,36 +47,46 @@
   body{
     background:
       linear-gradient(var(--paper),var(--paper)) fixed,
-      repeating-linear-gradient(to right, rgba(18,22,28,0.035) 0 1px, transparent 1px 88px),
-      repeating-linear-gradient(to bottom, rgba(18,22,28,0.035) 0 1px, transparent 1px 88px);
+      repeating-linear-gradient(to right, rgba(13,16,21,0.035) 0 1px, transparent 1px 88px),
+      repeating-linear-gradient(to bottom, rgba(13,16,21,0.035) 0 1px, transparent 1px 88px);
     color:var(--ink);
     font-family:var(--font-sans);
     line-height:1.65;
     -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
   }
 
   a{color:inherit}
   img{display:block;max-width:100%}
-  :focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+  :focus-visible{outline:2px solid var(--teal-bright);outline-offset:3px}
 
   .container{width:100%;max-width:var(--max);margin:0 auto;padding:0 2rem}
 
-  .eyebrow{
-    font-family:var(--font-mono);font-size:.72rem;text-transform:uppercase;
-    letter-spacing:.14em;color:var(--teal-deep);
-  }
+  .eyebrow{font-family:var(--font-mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.14em;color:var(--teal-deep)}
+  .eyebrow.on-dark{color:var(--teal-bright)}
+
+  @keyframes fadeInUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  @keyframes pmFadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes barGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @keyframes ringDraw{from{stroke-dashoffset:314.16}to{stroke-dashoffset:var(--ring-offset,0)}}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.72)}}
+  @keyframes floatBlob{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-16px,14px) scale(1.06)}}
+  @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
 
   .btn{
     display:inline-flex;align-items:center;gap:.5rem;
     padding:.85rem 1.6rem;font-family:var(--font-sans);font-size:.85rem;font-weight:600;
     text-decoration:none;letter-spacing:.02em;border:1px solid var(--ink);
-    transition:all .25s var(--ease);cursor:pointer;background:none;
+    transition:transform .25s var(--ease), box-shadow .25s var(--ease), background .25s var(--ease), border-color .25s var(--ease);
+    cursor:pointer;background:none;
   }
   .btn-primary{background:var(--ink);color:var(--paper)}
-  .btn-primary:hover{background:var(--teal-deep);border-color:var(--teal-deep)}
+  .btn-primary:hover{background:var(--teal-deep);border-color:var(--teal-deep);transform:translateY(-2px);box-shadow:0 10px 24px -12px rgba(10,76,71,.55)}
   .btn-secondary{background:transparent;color:var(--ink);border-color:var(--line-strong)}
-  .btn-secondary:hover{border-color:var(--ink);background:var(--card)}
+  .btn-secondary:hover{border-color:var(--ink);background:var(--card);transform:translateY(-2px);box-shadow:0 10px 24px -14px rgba(13,16,21,.25)}
   .btn-sm{padding:.6rem 1.15rem;font-size:.78rem}
+  .btn:active{transform:translateY(0)}
 
   /* ---------- Header ---------- */
   .site-header{
@@ -90,33 +99,42 @@
     font-family:var(--font-serif);font-size:1.3rem;font-weight:500;
     text-decoration:none;letter-spacing:.01em;color:var(--ink);display:flex;align-items:center;gap:.5rem;
   }
-  .brand-mark{width:9px;height:9px;background:var(--teal);display:inline-block;transform:rotate(45deg)}
+  .brand-mark{width:9px;height:9px;background:var(--teal-bright);display:inline-block;transform:rotate(45deg);animation:pulse 2.4s ease-in-out infinite}
   .nav-links{display:flex;gap:2.2rem;align-items:center}
-  .nav-links a{color:var(--ink-soft);text-decoration:none;font-size:.85rem;font-weight:500;transition:color .2s var(--ease)}
+  .nav-links a{color:var(--ink-soft);text-decoration:none;font-size:.85rem;font-weight:500;position:relative;padding-bottom:2px}
+  .nav-links a::after{content:"";position:absolute;left:50%;right:50%;bottom:-2px;height:1.5px;background:var(--teal-deep);transition:left .25s var(--ease),right .25s var(--ease)}
   .nav-links a:hover{color:var(--ink)}
-  .nav-cta{color:var(--teal-deep) !important;position:relative}
-  .nav-cta::after{content:"";position:absolute;left:0;bottom:-4px;width:100%;height:1px;background:var(--teal-deep)}
+  .nav-links a:hover::after{left:0;right:0}
+  .nav-cta{color:var(--teal-deep) !important}
 
   /* ---------- Hero ---------- */
-  .hero-section{padding:9.5rem 0 5rem}
-  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:4rem;align-items:center}
-  .hero-kicker{display:block;margin-bottom:1.4rem}
+  .hero-section{padding:9.5rem 0 5rem;position:relative}
+  .hero-glow{
+    position:absolute;top:2rem;right:-4rem;width:420px;height:420px;border-radius:50%;
+    background:radial-gradient(circle, rgba(23,201,184,.20), rgba(184,117,43,.10) 55%, transparent 72%);
+    filter:blur(10px);animation:floatBlob 9s ease-in-out infinite;pointer-events:none;z-index:0;
+  }
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:4rem;align-items:center;position:relative;z-index:1}
   .hero-title{
     font-family:var(--font-serif);font-weight:500;
     font-size:clamp(2.6rem,5vw,3.9rem);line-height:1.05;letter-spacing:-.01em;margin-bottom:1.2rem;
+    animation:fadeInUp .8s var(--ease) both;
   }
   .hero-title em{font-style:italic;font-weight:400;color:var(--teal-deep)}
-  .hero-subtitle{font-size:1.08rem;color:var(--ink-soft);max-width:520px;margin-bottom:2.2rem}
-  .hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
+  .hero-subtitle{font-size:1.08rem;color:var(--ink-soft);max-width:520px;margin-bottom:2.2rem;animation:fadeInUp .8s var(--ease) .1s both}
+  .hero-actions{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeInUp .8s var(--ease) .2s both}
+  .eyebrow.hero-kicker{animation:fadeInUp .8s var(--ease) both}
 
   .dash-card{
     background:var(--card);border:1px solid var(--line-strong);
-    box-shadow:0 1px 0 var(--line-strong), 0 24px 48px -28px rgba(18,22,28,.25);
+    box-shadow:0 1px 0 var(--line-strong), 0 30px 60px -30px rgba(13,16,21,.35);
+    animation:fadeInUp .9s var(--ease) .15s both;
   }
-  .dash-head{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.25rem;border-bottom:1px solid var(--line)}
-  .dash-head-title{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+  .dash-head{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.25rem;background:var(--navy);border-bottom:1px solid var(--navy)}
+  .dash-head-title{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:#C9D3E0;display:flex;align-items:center;gap:.5rem}
+  .live-dot{width:6px;height:6px;border-radius:50%;background:var(--teal-bright);display:inline-block;animation:pulse 1.6s ease-in-out infinite;box-shadow:0 0 8px var(--teal-bright)}
   .dash-dots{display:flex;gap:.35rem}
-  .dash-dots span{width:6px;height:6px;border-radius:50%;background:var(--line-strong);display:block}
+  .dash-dots span{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.28);display:block}
   .dash-body{padding:1.25rem}
   .dash-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);margin-bottom:1.1rem;border:1px solid var(--line)}
   .dash-kpi{background:var(--card);padding:.85rem .9rem}
@@ -124,53 +142,66 @@
   .dash-kpi-label{font-size:.68rem;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.04em}
   .dash-caption{font-family:var(--font-mono);font-size:.68rem;color:var(--ink-soft);padding-top:.9rem;border-top:1px dashed var(--line)}
 
-  /* ---------- Ledger strip ---------- */
-  .ledger-section{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--paper-deep)}
-  .ledger-row{display:grid;grid-template-columns:repeat(4,1fr)}
-  .ledger-item{padding:1.9rem 1.5rem;border-right:1px solid var(--line)}
+  /* ---------- Ledger strip: dark contrast band ---------- */
+  .ledger-section{background:var(--navy);position:relative;overflow:hidden}
+  .ledger-section::before{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(600px 240px at 15% 0%, rgba(23,201,184,.14), transparent 60%),
+               radial-gradient(600px 240px at 85% 100%, rgba(240,169,60,.10), transparent 60%);
+    pointer-events:none;
+  }
+  .ledger-row{display:grid;grid-template-columns:repeat(4,1fr);position:relative;z-index:1}
+  .ledger-item{padding:2.4rem 1.75rem;border-right:1px solid rgba(255,255,255,.08)}
   .ledger-item:last-child{border-right:none}
-  .ledger-num{font-family:var(--font-mono);font-size:1.7rem;color:var(--ink);display:block;margin-bottom:.3rem}
-  .ledger-label{font-size:.78rem;color:var(--ink-soft)}
+  .ledger-num{font-family:var(--font-mono);font-size:2.1rem;color:#fff;display:block;margin-bottom:.4rem;font-weight:600}
+  .ledger-label{font-size:.8rem;color:#9FB0C6}
 
   /* ---------- About ---------- */
   .about-section{padding:7rem 0}
   .grid-2{display:grid;grid-template-columns:.85fr 1.4fr;gap:5rem;align-items:start}
-  .section-title{
-    font-family:var(--font-serif);font-weight:500;
-    font-size:clamp(1.8rem,2.6vw,2.3rem);line-height:1.2;margin-bottom:.9rem;
-  }
+  .section-title{font-family:var(--font-serif);font-weight:500;font-size:clamp(1.8rem,2.6vw,2.3rem);line-height:1.2;margin-bottom:.9rem}
   .section-subtitle{color:var(--ink-soft);font-size:1rem}
   .about-copy p{margin-bottom:1.35rem;color:var(--ink-soft);font-size:1.02rem}
   .about-copy p:first-of-type{color:var(--ink);font-size:1.1rem}
   .chip-row{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.6rem}
-  .chip{font-family:var(--font-mono);font-size:.75rem;color:var(--ink);border:1px solid var(--line-strong);padding:.4rem .75rem;background:var(--card)}
+  .chip{font-family:var(--font-mono);font-size:.75rem;color:var(--ink);border:1px solid var(--line-strong);padding:.4rem .75rem;background:var(--card);transition:all .2s var(--ease)}
+  .chip:hover{background:var(--teal-deep);color:#fff;border-color:var(--teal-deep);transform:translateY(-2px)}
 
-  /* ---------- Experience ---------- */
-  .experience-section{padding:7rem 0}
-  .section-title-wrapper{margin-bottom:3.5rem;display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap}
-  .timeline{border-top:1px solid var(--line)}
-  .timeline-item{display:grid;grid-template-columns:200px 1fr;gap:3rem;padding:2.75rem 0;border-bottom:1px solid var(--line);position:relative}
-  .timeline-meta{position:relative;padding-left:1.4rem}
-  .timeline-meta::before{content:"";position:absolute;left:0;top:.35rem;width:8px;height:8px;background:var(--teal)}
-  .timeline-dates{display:block;font-family:var(--font-mono);font-size:.92rem;color:var(--ink);margin-bottom:.4rem}
-  .timeline-company{font-size:.82rem;color:var(--ink-soft)}
-  .timeline-content h3{font-family:var(--font-serif);font-weight:500;font-size:1.35rem;margin-bottom:.8rem}
-  .timeline-summary{color:var(--ink-soft);margin-bottom:1.1rem;font-size:.98rem}
-  .timeline-content ul{list-style:none;display:flex;flex-direction:column;gap:.6rem}
-  .timeline-content li{position:relative;padding-left:1.2rem;color:var(--ink-soft);font-size:.94rem}
-  .timeline-content li::before{content:"·";position:absolute;left:0;color:var(--teal-deep);font-weight:700}
+  /* ---------- Experience: condensed snapshot ---------- */
+  .experience-section{padding:6rem 0}
+  .section-title-wrapper{margin-bottom:1.5rem;display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap}
+  .exp-note{color:var(--ink-soft);font-size:.92rem;margin-bottom:2.75rem;max-width:560px}
+  .exp-strip{border-top:1px solid var(--line)}
+  .exp-row{
+    display:grid;grid-template-columns:150px 1fr auto;gap:2rem;align-items:baseline;
+    padding:1.5rem 0;border-bottom:1px solid var(--line);transition:background .2s var(--ease);
+  }
+  .exp-row:hover{background:var(--paper-deep)}
+  .exp-dates{font-family:var(--font-mono);font-size:.82rem;color:var(--ink-soft)}
+  .exp-role{display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap}
+  .exp-role h3{font-family:var(--font-serif);font-weight:500;font-size:1.15rem}
+  .exp-company{font-size:.85rem;color:var(--ink-soft)}
+  .exp-desc{font-size:.85rem;color:var(--ink-soft);text-align:right;max-width:280px}
 
-  /* ---------- Projects: flagship gallery ---------- */
+  /* ---------- Projects ---------- */
   .projects-section{padding:7rem 0}
   .project-feature{background:var(--card);border:1px solid var(--line-strong);margin-bottom:3rem}
   .project-feature-header{
-    padding:2.25rem 2.25rem 1.75rem;border-bottom:1px solid var(--line);
+    padding:2.25rem 2.25rem 1.5rem;border-bottom:1px solid var(--line);
     display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1.5rem;
   }
   .project-feature-title{font-family:var(--font-serif);font-size:1.65rem;font-weight:500;margin:.5rem 0 .8rem}
-  .project-feature-desc{color:var(--ink-soft);font-size:.98rem;max-width:600px}
+  .project-feature-desc{color:var(--ink-soft);font-size:.98rem;max-width:620px}
   .project-feature-tags{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.1rem}
   .project-tag{font-family:var(--font-mono);font-size:.7rem;padding:.3rem .6rem;background:var(--paper-deep);color:var(--ink-soft);border:1px solid var(--line)}
+
+  .filter-chips{display:flex;gap:.6rem;flex-wrap:wrap;padding:1rem 2.25rem;background:var(--paper-deep);border-bottom:1px solid var(--line)}
+  .filter-chip{
+    font-family:var(--font-mono);font-size:.7rem;color:var(--ink-soft);
+    border:1px solid var(--line-strong);padding:.35rem .7rem;background:var(--card);
+    display:flex;align-items:center;gap:.4rem;
+  }
+  .filter-chip .live-dot{width:5px;height:5px}
 
   .dash-gallery{display:grid;grid-template-columns:300px 1fr;position:relative}
   .dash-gallery > input{display:none}
@@ -178,86 +209,95 @@
   .dash-tab{
     display:block;width:100%;text-align:left;padding:1.05rem 1.4rem;
     border-bottom:1px solid var(--line);cursor:pointer;border-left:3px solid transparent;
-    transition:background .2s var(--ease);
+    transition:background .2s var(--ease), transform .2s var(--ease), border-color .2s var(--ease);
   }
-  .dash-tab:hover{background:var(--paper)}
+  .dash-tab:hover{background:var(--paper);transform:translateX(3px)}
   .dash-tab-num{font-family:var(--font-mono);font-size:.7rem;color:var(--teal-deep);display:block;margin-bottom:.3rem}
   .dash-tab-title{font-size:.92rem;font-weight:600;color:var(--ink);margin-bottom:.25rem}
   .dash-tab-desc{font-size:.78rem;color:var(--ink-soft);line-height:1.4}
 
   .dash-viewers{padding:1.75rem;background:var(--paper-deep)}
   .dash-view{display:none}
-  .dash-view-frame{background:var(--card);border:1px solid var(--line-strong);box-shadow:0 10px 28px -18px rgba(18,22,28,.3)}
-  .dash-view-chrome{
-    display:flex;align-items:center;gap:.6rem;padding:.75rem 1.1rem;
-    background:var(--navy-chrome);border-bottom:1px solid var(--navy-chrome);
-  }
-  .dash-view-chrome .dash-dots span{background:rgba(255,255,255,.28)}
+  .dash-view-frame{background:var(--card);border:1px solid var(--line-strong);box-shadow:0 10px 28px -18px rgba(13,16,21,.3);overflow:hidden}
+  .dash-view-chrome{display:flex;align-items:center;justify-content:space-between;gap:.6rem;padding:.75rem 1.1rem;background:var(--navy)}
+  .dash-view-chrome-left{display:flex;align-items:center;gap:.6rem}
   .dash-view-chrome-label{font-family:var(--font-mono);font-size:.7rem;color:#C9D3E0;letter-spacing:.05em;text-transform:uppercase}
-  .dash-view img{width:100%;border-top:1px solid var(--line)}
-  .dash-view-caption{font-size:.86rem;color:var(--ink-soft);margin-top:1rem;line-height:1.55}
-  .dash-view-caption strong{color:var(--ink);font-weight:600}
+  .dash-view-live{font-family:var(--font-mono);font-size:.62rem;color:var(--teal-bright);display:flex;align-items:center;gap:.35rem;letter-spacing:.05em;text-transform:uppercase}
 
-  /* checked-state wiring via :has() */
   #dtab1:checked ~ .dash-tabs label[for="dtab1"],
   #dtab2:checked ~ .dash-tabs label[for="dtab2"],
   #dtab3:checked ~ .dash-tabs label[for="dtab3"],
   #dtab4:checked ~ .dash-tabs label[for="dtab4"],
   #dtab5:checked ~ .dash-tabs label[for="dtab5"],
   #dtab6:checked ~ .dash-tabs label[for="dtab6"],
-  #dtab7:checked ~ .dash-tabs label[for="dtab7"]{
-    background:var(--teal-wash);border-left-color:var(--teal)
-  }
+  #dtab7:checked ~ .dash-tabs label[for="dtab7"]{background:var(--teal-wash);border-left-color:var(--teal)}
   #dtab1:checked ~ .dash-viewers #dview1,
   #dtab2:checked ~ .dash-viewers #dview2,
   #dtab3:checked ~ .dash-viewers #dview3,
   #dtab4:checked ~ .dash-viewers #dview4,
   #dtab5:checked ~ .dash-viewers #dview5,
   #dtab6:checked ~ .dash-viewers #dview6,
-  #dtab7:checked ~ .dash-viewers #dview7{
-    display:block
-  }
+  #dtab7:checked ~ .dash-viewers #dview7{display:block;animation:pmFadeIn .5s var(--ease) both}
 
-  /* ---------- PM chart panels (native rebuilds, not screenshots) ---------- */
   .pm-panel{padding:1.75rem}
-  .pm-kpis{display:flex;gap:.5rem;margin-bottom:1.6rem;flex-wrap:wrap}
-  .pm-kpi{flex:1 1 140px;background:var(--navy-card);padding:1rem 1.15rem}
+  .pm-kpis{display:flex;gap:.5rem;margin-bottom:1.75rem;flex-wrap:wrap}
+  .pm-kpi{flex:1 1 140px;background:var(--navy-card);padding:1rem 1.15rem;position:relative;overflow:hidden}
   .pm-kpi:nth-child(2n){background:var(--navy-card-2)}
-  .pm-kpi-num{font-family:var(--font-mono);font-size:1.35rem;color:#FFFFFF;display:block}
-  .pm-kpi-num.amber{color:#F0B15C}
+  .pm-kpi-num{font-family:var(--font-mono);font-size:1.4rem;color:#fff;display:block;font-weight:600}
+  .pm-kpi-num.amber{color:var(--amber-bright)}
   .pm-kpi-label{font-size:.68rem;color:#B7C3D6;text-transform:uppercase;letter-spacing:.03em}
 
-  .pm-chart-title{font-family:var(--font-mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);margin-bottom:.9rem}
-  .pm-bars{display:flex;flex-direction:column;gap:.65rem;margin-bottom:1.5rem}
-  .pm-bar-row{display:grid;grid-template-columns:150px 1fr 64px;align-items:center;gap:.75rem}
-  .pm-bar-label{font-size:.82rem;color:var(--ink)}
-  .pm-bar-track{background:var(--paper-deep);height:14px;border:1px solid var(--line);overflow:hidden}
-  .pm-bar-fill{height:100%;background:var(--teal)}
-  .pm-bar-fill.amber{background:var(--amber)}
-  .pm-bar-value{font-family:var(--font-mono);font-size:.78rem;color:var(--ink-soft);text-align:right}
+  .pm-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:1.75rem;margin-bottom:1.5rem;align-items:start}
+  .pm-widget{background:var(--paper);border:1px solid var(--line);padding:1.4rem}
+  .pm-chart-title{font-family:var(--font-mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);margin-bottom:1rem}
 
-  .pm-legend{display:flex;gap:1.4rem;flex-wrap:wrap;margin-bottom:1rem;font-size:.78rem;color:var(--ink-soft)}
+  .pm-bars{display:flex;flex-direction:column;gap:.65rem}
+  .pm-bar-row{display:grid;grid-template-columns:128px 1fr 58px;align-items:center;gap:.65rem;transition:transform .18s var(--ease)}
+  .pm-bar-row:hover{transform:translateX(2px)}
+  .pm-bar-label{font-size:.8rem;color:var(--ink)}
+  .pm-bar-track{background:var(--paper-deep);height:14px;border:1px solid var(--line);overflow:hidden}
+  .pm-bar-fill{height:100%;background:var(--teal);transform-origin:left;animation:barGrow .8s var(--ease) both}
+  .pm-bar-fill.amber{background:var(--amber)}
+  .pm-bar-value{font-family:var(--font-mono);font-size:.76rem;color:var(--ink-soft);text-align:right}
+
+  .pm-legend{display:flex;gap:1.2rem;flex-wrap:wrap;margin-bottom:.9rem;font-size:.76rem;color:var(--ink-soft)}
   .pm-legend-item{display:flex;align-items:center;gap:.4rem}
   .pm-legend-swatch{width:16px;height:0;border-top:2px solid var(--teal)}
   .pm-legend-swatch.dashed{border-top:2px dashed var(--line-strong)}
   .pm-legend-swatch.dotted{border-top:2px dotted var(--teal)}
 
-  .pm-seg-bar{display:flex;height:52px;border:1px solid var(--line-strong);margin-bottom:1.5rem;overflow:hidden}
-  .pm-seg{display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;padding:.2rem}
+  .pm-seg-bar{display:flex;height:52px;border:1px solid var(--line-strong);overflow:hidden}
+  .pm-seg{display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;padding:.2rem;transform-origin:left;animation:barGrow .8s var(--ease) both}
   .pm-seg-critical{background:var(--sev-critical)}
   .pm-seg-high{background:var(--sev-high)}
   .pm-seg-medium{background:var(--sev-medium)}
   .pm-seg-low{background:var(--sev-low)}
-  .pm-seg-label{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.03em;line-height:1.2}
-  .pm-seg-value{font-family:var(--font-mono);font-size:.85rem;font-weight:600;line-height:1.2}
+  .pm-seg-label{font-size:.66rem;font-weight:600;text-transform:uppercase;letter-spacing:.03em;line-height:1.2}
+  .pm-seg-value{font-family:var(--font-mono);font-size:.82rem;font-weight:600;line-height:1.2}
 
-  .pm-note{font-size:.9rem;color:var(--ink-soft);line-height:1.6;padding-top:1.15rem;border-top:1px dashed var(--line)}
+  .pm-ring-wrap{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .pm-ring-svg{width:150px;height:150px}
+  .pm-ring-value{font-family:var(--font-mono);font-size:1.35rem;font-weight:600;fill:var(--ink)}
+  .pm-ring-caption{font-size:.78rem;color:var(--ink-soft);margin-top:.6rem;max-width:180px}
+
+  .pm-donut-wrap{display:flex;align-items:center;gap:1.1rem}
+  .pm-donut-svg{width:110px;height:110px;flex-shrink:0}
+  .pm-donut-legend{display:flex;flex-direction:column;gap:.5rem}
+  .pm-donut-legend-item{display:flex;align-items:center;gap:.5rem;font-size:.76rem;color:var(--ink-soft)}
+  .pm-donut-swatch{width:9px;height:9px;flex-shrink:0}
+  .pm-donut-legend-item strong{color:var(--ink);font-family:var(--font-mono);font-weight:600}
+
+  .pm-note{
+    display:flex;gap:.85rem;font-size:.9rem;color:var(--ink-soft);line-height:1.65;
+    padding:1.1rem 1.25rem;background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--teal);
+  }
+  .pm-note-icon{flex-shrink:0;width:20px;height:20px;color:var(--teal-deep);margin-top:.15rem}
   .pm-note strong{color:var(--ink);font-weight:600}
 
   .other-projects-label{font-family:var(--font-mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-soft);margin:0 0 1.25rem}
   .other-projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
-  .project-card{background:var(--card);border:1px solid var(--line-strong);padding:2rem;transition:transform .25s var(--ease), box-shadow .25s var(--ease);display:flex;flex-direction:column}
-  .project-card:hover{transform:translateY(-3px);box-shadow:0 16px 32px -20px rgba(18,22,28,.28)}
+  .project-card{background:var(--card);border:1px solid var(--line-strong);border-top:3px solid var(--line-strong);padding:2rem;transition:transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s var(--ease);display:flex;flex-direction:column}
+  .project-card:hover{transform:translateY(-4px);box-shadow:0 20px 36px -20px rgba(13,16,21,.3);border-top-color:var(--teal)}
   .project-card h4{font-family:var(--font-serif);font-weight:500;font-size:1.15rem;margin:.7rem 0 .65rem}
   .project-card p{color:var(--ink-soft);font-size:.92rem;margin-bottom:1.5rem;flex-grow:1}
 
@@ -272,27 +312,30 @@
   .footer-container{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem}
   .footer-note{font-family:var(--font-mono);font-size:.72rem}
 
-  .reveal{opacity:0;transform:translateY(16px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
   .reveal.in{opacity:1;transform:translateY(0)}
 
   @media (max-width:1024px){
     .hero-grid{grid-template-columns:1fr}
+    .hero-glow{display:none}
     .ledger-row{grid-template-columns:repeat(2,1fr)}
     .ledger-item:nth-child(2){border-right:none}
-    .grid-2,.timeline-item{grid-template-columns:1fr;gap:1.5rem}
-    .timeline-meta{padding-left:1.4rem}
+    .grid-2{grid-template-columns:1fr;gap:1.5rem}
+    .exp-row{grid-template-columns:1fr;gap:.4rem}
+    .exp-desc{text-align:left;max-width:none}
     .dash-gallery{grid-template-columns:1fr}
     .dash-tabs{display:flex;overflow-x:auto;border-right:none;border-bottom:1px solid var(--line)}
     .dash-tab{min-width:230px;border-bottom:none;border-right:1px solid var(--line);border-left:none;border-top:3px solid transparent}
+    .dash-tab:hover{transform:translateY(-2px)}
     #dtab1:checked ~ .dash-tabs label[for="dtab1"],
     #dtab2:checked ~ .dash-tabs label[for="dtab2"],
     #dtab3:checked ~ .dash-tabs label[for="dtab3"],
     #dtab4:checked ~ .dash-tabs label[for="dtab4"],
     #dtab5:checked ~ .dash-tabs label[for="dtab5"],
     #dtab6:checked ~ .dash-tabs label[for="dtab6"],
-    #dtab7:checked ~ .dash-tabs label[for="dtab7"]{
-      border-left-color:transparent;border-top-color:var(--teal)
-    }
+    #dtab7:checked ~ .dash-tabs label[for="dtab7"]{border-left-color:transparent;border-top-color:var(--teal)}
+    .pm-grid{grid-template-columns:1fr}
+    .pm-donut-wrap{justify-content:center}
   }
 </style>
 </head>
@@ -313,9 +356,10 @@
   <main>
     <!-- Hero -->
     <section class="hero-section">
+      <div class="hero-glow"></div>
       <div class="container hero-grid">
         <div>
-          <span class="eyebrow">Business Intelligence &amp; Data Analytics</span>
+          <span class="eyebrow hero-kicker">Business Intelligence &amp; Data Analytics</span>
           <h1 class="hero-title">Chisombili<br>Ani<em>ebue</em></h1>
           <p class="hero-subtitle">I turn scattered operational data into dashboards people actually use — built on SQL, Power BI, and a background in accounting that keeps the numbers honest.</p>
           <div class="hero-actions">
@@ -324,16 +368,16 @@
           </div>
         </div>
 
-        <div class="dash-card reveal">
+        <div class="dash-card">
           <div class="dash-head">
-            <span class="dash-head-title">Ops Overview — Q3</span>
+            <span class="dash-head-title"><span class="live-dot"></span>Ops Overview — Q3</span>
             <div class="dash-dots"><span></span><span></span><span></span></div>
           </div>
           <div class="dash-body">
             <div class="dash-kpis">
-              <div class="dash-kpi"><span class="dash-kpi-num">92%</span><span class="dash-kpi-label">On-time PO</span></div>
-              <div class="dash-kpi"><span class="dash-kpi-num">+18%</span><span class="dash-kpi-label">Upsell rate</span></div>
-              <div class="dash-kpi"><span class="dash-kpi-num">1.4d</span><span class="dash-kpi-label">Ticket SLA</span></div>
+              <div class="dash-kpi"><span class="dash-kpi-num" data-target="92" data-suffix="%">0%</span><span class="dash-kpi-label">On-time PO</span></div>
+              <div class="dash-kpi"><span class="dash-kpi-num" data-target="18" data-prefix="+" data-suffix="%">+0%</span><span class="dash-kpi-label">Upsell rate</span></div>
+              <div class="dash-kpi"><span class="dash-kpi-num" data-target="1.4" data-decimals="1" data-suffix="d">0d</span><span class="dash-kpi-label">Ticket SLA</span></div>
             </div>
             <svg viewBox="0 0 400 130" width="100%" height="130" role="img" aria-label="Illustrative trend chart">
               <line x1="0" y1="32" x2="400" y2="32" stroke="#D7DBD4" stroke-width="1"/>
@@ -349,14 +393,14 @@
       </div>
     </section>
 
-    <!-- Real stats -->
+    <!-- Real stats — high-contrast band -->
     <section class="ledger-section">
       <div class="container">
         <div class="ledger-row">
-          <div class="ledger-item"><span class="ledger-num">3.93</span><span class="ledger-label">B.Sc GPA, Accounting — University of Abuja</span></div>
-          <div class="ledger-item"><span class="ledger-num">100%</span><span class="ledger-label">Intern-to-full-time conversion</span></div>
-          <div class="ledger-item"><span class="ledger-num">4</span><span class="ledger-label">Departments served: procurement, finance, ops, customer</span></div>
-          <div class="ledger-item"><span class="ledger-num">01</span><span class="ledger-label">Analytics function built end-to-end at FiberOne</span></div>
+          <div class="ledger-item"><span class="ledger-num" data-target="3.93" data-decimals="2">0.00</span><span class="ledger-label">B.Sc GPA, Accounting — University of Abuja</span></div>
+          <div class="ledger-item"><span class="ledger-num" data-target="100" data-suffix="%">0%</span><span class="ledger-label">Intern-to-full-time conversion</span></div>
+          <div class="ledger-item"><span class="ledger-num" data-target="4">0</span><span class="ledger-label">Departments served: procurement, finance, ops, customer</span></div>
+          <div class="ledger-item"><span class="ledger-num" data-target="1" data-pad="2">00</span><span class="ledger-label">Analytics function built end-to-end at FiberOne</span></div>
         </div>
       </div>
     </section>
@@ -380,54 +424,26 @@
       </div>
     </section>
 
-    <!-- Experience -->
+    <!-- Experience: condensed snapshot, not a CV replica -->
     <section id="experience" class="experience-section">
       <div class="container">
-        <div class="section-title-wrapper"><h2 class="section-title reveal">Professional record</h2></div>
-        <div class="timeline">
-          <div class="timeline-item reveal">
-            <div class="timeline-meta">
-              <span class="timeline-dates">10/2025 — Present</span>
-              <span class="timeline-company">FiberOne Broadband</span>
-            </div>
-            <div class="timeline-content">
-              <h3>Business Intelligence &amp; Data Analyst</h3>
-              <p class="timeline-summary">Owns the end-to-end BI platform and reporting framework used across the business.</p>
-              <ul>
-                <li>Build and maintain Power BI dashboards covering procurement, finance, customer operations, and project reporting.</li>
-                <li>Extract, clean, and validate data across multi-source pipelines using SQL, Power Query, and R.</li>
-                <li>Automate recurring reporting with Power Automate and R, replacing manual, spreadsheet-driven processes.</li>
-              </ul>
-            </div>
+        <div class="section-title-wrapper"><h2 class="section-title reveal">Career snapshot</h2></div>
+        <p class="exp-note reveal">The shape of it, not the full resume — role, company, and what each one was really about. Happy to send the full CV on request.</p>
+        <div class="exp-strip reveal">
+          <div class="exp-row">
+            <span class="exp-dates">10/2025 — Present</span>
+            <div class="exp-role"><h3>Business Intelligence &amp; Data Analyst</h3><span class="exp-company">FiberOne Broadband</span></div>
+            <span class="exp-desc">Owns the BI platform across procurement, finance, and customer ops.</span>
           </div>
-          <div class="timeline-item reveal">
-            <div class="timeline-meta">
-              <span class="timeline-dates">06/2025 — 09/2025</span>
-              <span class="timeline-company">FiberOne Broadband</span>
-            </div>
-            <div class="timeline-content">
-              <h3>Data Analyst Intern</h3>
-              <p class="timeline-summary">Provided foundational analytical support and automated recurring data tasks.</p>
-              <ul>
-                <li>Built interactive Power BI dashboards and cleaned complex datasets with Power Query and Excel.</li>
-                <li>Ran SQL-driven data extraction to support live business requirements.</li>
-                <li>Converted to full-time analyst after four months, based on delivery and performance.</li>
-              </ul>
-            </div>
+          <div class="exp-row">
+            <span class="exp-dates">06/2025 — 09/2025</span>
+            <div class="exp-role"><h3>Data Analyst Intern</h3><span class="exp-company">FiberOne Broadband</span></div>
+            <span class="exp-desc">Converted to full-time after four months.</span>
           </div>
-          <div class="timeline-item reveal">
-            <div class="timeline-meta">
-              <span class="timeline-dates">09/2023 — 01/2025</span>
-              <span class="timeline-company">African Institute for Technology and Innovation (AITI)</span>
-            </div>
-            <div class="timeline-content">
-              <h3>Accountant</h3>
-              <p class="timeline-summary">Managed financial records, internal controls, and corporate reporting.</p>
-              <ul>
-                <li>Maintained ledger reconciliations and accounts receivable to keep cash flow accurate and compliant.</li>
-                <li>Prepared financial reports supporting leadership oversight and month-end close.</li>
-              </ul>
-            </div>
+          <div class="exp-row">
+            <span class="exp-dates">09/2023 — 01/2025</span>
+            <div class="exp-role"><h3>Accountant</h3><span class="exp-company">African Institute for Technology and Innovation</span></div>
+            <span class="exp-desc">Reconciliations, receivables, and month-end reporting.</span>
           </div>
         </div>
       </div>
@@ -447,7 +463,7 @@
             <div>
               <span class="eyebrow">Personal Project</span>
               <h3 class="project-feature-title">Program Dashboards Suite</h3>
-              <p class="project-feature-desc">A construction program runs on more than one report — is the schedule holding, what's overdue, who's carrying the risk, where did the money go. I modeled it as one connected data set in Power BI, then built a dedicated view for each question below: schedule progress, task ownership, open RFIs, risk, change-order approvals, and spend. The data is illustrative, built to show the same modeling and DAX approach applied to a different industry.</p>
+              <p class="project-feature-desc">A construction program runs on more than one report — is the schedule holding, what's overdue, who's carrying the risk, where did the money go. I modeled it as one connected data set in Power BI, then built a dedicated view for each question below. The data is illustrative, built to show the same modeling and DAX approach applied to a different industry.</p>
               <div class="project-feature-tags">
                 <span class="project-tag">Power BI</span>
                 <span class="project-tag">Power Query</span>
@@ -456,6 +472,13 @@
                 <span class="project-tag">HTML</span>
               </div>
             </div>
+          </div>
+
+          <div class="filter-chips">
+            <span class="filter-chip"><span class="live-dot"></span>Live-style demo</span>
+            <span class="filter-chip">7 connected views</span>
+            <span class="filter-chip">Illustrative dataset</span>
+            <span class="filter-chip">One shared data model</span>
           </div>
 
           <div class="dash-gallery">
@@ -468,41 +491,13 @@
             <input type="radio" name="dtab" id="dtab7">
 
             <div class="dash-tabs">
-              <label for="dtab1" class="dash-tab">
-                <span class="dash-tab-num">01</span>
-                <span class="dash-tab-title">Executive Timeline</span>
-                <span class="dash-tab-desc">Program-wide schedule at a glance</span>
-              </label>
-              <label for="dtab2" class="dash-tab">
-                <span class="dash-tab-num">02</span>
-                <span class="dash-tab-title">Progress S-Curve</span>
-                <span class="dash-tab-desc">Planned vs. actual, plotted over time</span>
-              </label>
-              <label for="dtab3" class="dash-tab">
-                <span class="dash-tab-num">03</span>
-                <span class="dash-tab-title">Task Management</span>
-                <span class="dash-tab-desc">Workload and status across every task</span>
-              </label>
-              <label for="dtab4" class="dash-tab">
-                <span class="dash-tab-num">04</span>
-                <span class="dash-tab-title">RFIs &amp; Action Items</span>
-                <span class="dash-tab-desc">Open issues, owned and dated</span>
-              </label>
-              <label for="dtab5" class="dash-tab">
-                <span class="dash-tab-num">05</span>
-                <span class="dash-tab-title">Risk Register</span>
-                <span class="dash-tab-desc">Every risk, scored and assigned</span>
-              </label>
-              <label for="dtab6" class="dash-tab">
-                <span class="dash-tab-num">06</span>
-                <span class="dash-tab-title">Change Order Certificates</span>
-                <span class="dash-tab-desc">Approvals, timed and totaled</span>
-              </label>
-              <label for="dtab7" class="dash-tab">
-                <span class="dash-tab-num">07</span>
-                <span class="dash-tab-title">Invoice &amp; Spend</span>
-                <span class="dash-tab-desc">Where the budget actually went</span>
-              </label>
+              <label for="dtab1" class="dash-tab"><span class="dash-tab-num">01</span><span class="dash-tab-title">Executive Timeline</span><span class="dash-tab-desc">Program-wide schedule at a glance</span></label>
+              <label for="dtab2" class="dash-tab"><span class="dash-tab-num">02</span><span class="dash-tab-title">Progress S-Curve</span><span class="dash-tab-desc">Planned vs. actual, plotted over time</span></label>
+              <label for="dtab3" class="dash-tab"><span class="dash-tab-num">03</span><span class="dash-tab-title">Task Management</span><span class="dash-tab-desc">Workload and status across every task</span></label>
+              <label for="dtab4" class="dash-tab"><span class="dash-tab-num">04</span><span class="dash-tab-title">RFIs &amp; Action Items</span><span class="dash-tab-desc">Open issues, owned and dated</span></label>
+              <label for="dtab5" class="dash-tab"><span class="dash-tab-num">05</span><span class="dash-tab-title">Risk Register</span><span class="dash-tab-desc">Every risk, scored and assigned</span></label>
+              <label for="dtab6" class="dash-tab"><span class="dash-tab-num">06</span><span class="dash-tab-title">Change Order Certificates</span><span class="dash-tab-desc">Approvals, timed and totaled</span></label>
+              <label for="dtab7" class="dash-tab"><span class="dash-tab-num">07</span><span class="dash-tab-title">Invoice &amp; Spend</span><span class="dash-tab-desc">Where the budget actually went</span></label>
             </div>
 
             <div class="dash-viewers">
@@ -510,22 +505,39 @@
               <!-- 01 Executive Timeline -->
               <figure class="dash-view" id="dview1">
                 <div class="dash-view-frame">
-                  <div class="dash-view-chrome"><div class="dash-dots"><span></span><span></span><span></span></div><span class="dash-view-chrome-label">Executive Overview</span></div>
+                  <div class="dash-view-chrome">
+                    <div class="dash-view-chrome-left"><div class="dash-dots"><span></span><span></span><span></span></div><span class="dash-view-chrome-label">Executive Overview</span></div>
+                    <span class="dash-view-live"><span class="live-dot"></span>Updated weekly</span>
+                  </div>
                   <div class="pm-panel">
                     <div class="pm-kpis">
-                      <div class="pm-kpi"><span class="pm-kpi-num">97</span><span class="pm-kpi-label">Total activities</span></div>
-                      <div class="pm-kpi"><span class="pm-kpi-num amber">3</span><span class="pm-kpi-label">Flagged critical</span></div>
+                      <div class="pm-kpi"><span class="pm-kpi-num" data-target="97">0</span><span class="pm-kpi-label">Total activities</span></div>
+                      <div class="pm-kpi"><span class="pm-kpi-num amber" data-target="3">0</span><span class="pm-kpi-label">Flagged critical</span></div>
                       <div class="pm-kpi"><span class="pm-kpi-num">Aug 2032</span><span class="pm-kpi-label">Baseline finish</span></div>
                     </div>
-                    <p class="pm-chart-title">Progress by scope</p>
-                    <div class="pm-bars">
-                      <div class="pm-bar-row"><span class="pm-bar-label">Terminal Expansion</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:100%"></div></div><span class="pm-bar-value">62%</span></div>
-                      <div class="pm-bar-row"><span class="pm-bar-label">Riverside Transit</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:89%"></div></div><span class="pm-bar-value">55%</span></div>
-                      <div class="pm-bar-row"><span class="pm-bar-label">Substation Module</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:73%"></div></div><span class="pm-bar-value">45%</span></div>
-                      <div class="pm-bar-row"><span class="pm-bar-label">Transportation &amp; Haul</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:61%"></div></div><span class="pm-bar-value">38%</span></div>
-                      <div class="pm-bar-row"><span class="pm-bar-label">Remediation &amp; Integration</span><div class="pm-bar-track"><div class="pm-bar-fill amber" style="width:32%"></div></div><span class="pm-bar-value">20%</span></div>
+                    <div class="pm-grid">
+                      <div class="pm-widget">
+                        <p class="pm-chart-title">Progress by scope</p>
+                        <div class="pm-bars">
+                          <div class="pm-bar-row"><span class="pm-bar-label">Terminal Expansion</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:100%"></div></div><span class="pm-bar-value">62%</span></div>
+                          <div class="pm-bar-row"><span class="pm-bar-label">Riverside Transit</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:89%;animation-delay:.05s"></div></div><span class="pm-bar-value">55%</span></div>
+                          <div class="pm-bar-row"><span class="pm-bar-label">Substation Module</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:73%;animation-delay:.1s"></div></div><span class="pm-bar-value">45%</span></div>
+                          <div class="pm-bar-row"><span class="pm-bar-label">Transportation &amp; Haul</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:61%;animation-delay:.15s"></div></div><span class="pm-bar-value">38%</span></div>
+                          <div class="pm-bar-row"><span class="pm-bar-label">Remediation &amp; Integration</span><div class="pm-bar-track"><div class="pm-bar-fill amber" style="width:32%;animation-delay:.2s"></div></div><span class="pm-bar-value">20%</span></div>
+                        </div>
+                      </div>
+                      <div class="pm-widget pm-ring-wrap">
+                        <p class="pm-chart-title">Program health</p>
+                        <svg class="pm-ring-svg" viewBox="0 0 120 120">
+                          <circle cx="60" cy="60" r="50" fill="none" stroke="#E9EBE6" stroke-width="14"/>
+                          <circle cx="60" cy="60" r="50" fill="none" stroke="#0E6B64" stroke-width="14" stroke-linecap="round"
+                            stroke-dasharray="314.16" stroke-dashoffset="56.55" transform="rotate(-90 60 60)"/>
+                          <text x="60" y="66" text-anchor="middle" class="pm-ring-value">82%</text>
+                        </svg>
+                        <p class="pm-ring-caption">Composite of schedule, critical-flag, and variance signals.</p>
+                      </div>
                     </div>
-                    <p class="pm-note">This is the page a program director opens first. Every workstream rolls up into one view — percent complete against baseline, and which scope is furthest behind (<strong>Remediation &amp; Integration, in amber</strong>) — so a schedule slip is visible before it shows up anywhere else.</p>
+                    <p class="pm-note"><svg class="pm-note-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 7.2H22l-6 4.4 2.3 7.1L12 16.3l-6.3 4.4 2.3-7.1-6-4.4h7.6z"/></svg><span>Program directors don't read Gantt charts line by line — they scan for the one bar that's shorter than it should be. <strong>Terminal Expansion</strong> is tracking well at 62%, but <strong>Remediation &amp; Integration</strong> has barely moved past a fifth of the way in, and that's usually the scope that ends up on the Monday call.</span></p>
                   </div>
                 </div>
               </figure>
@@ -533,40 +545,57 @@
               <!-- 02 Progress S-Curve -->
               <figure class="dash-view" id="dview2">
                 <div class="dash-view-frame">
-                  <div class="dash-view-chrome"><div class="dash-dots"><span></span><span></span><span></span></div><span class="dash-view-chrome-label">Progress Tracking</span></div>
+                  <div class="dash-view-chrome">
+                    <div class="dash-view-chrome-left"><div class="dash-dots"><span></span><span></span><span></span></div><span class="dash-view-chrome-label">Progress Tracking</span></div>
+                    <span class="dash-view-live"><span class="live-dot"></span>Updated weekly</span>
+                  </div>
                   <div class="pm-panel">
                     <div class="pm-kpis">
-                      <div class="pm-kpi"><span class="pm-kpi-num">51.2%</span><span class="pm-kpi-label">Actual to date</span></div>
-                      <div class="pm-kpi"><span class="pm-kpi-num">58.4%</span><span class="pm-kpi-label">Planned to date</span></div>
-                      <div class="pm-kpi"><span class="pm-kpi-num amber">0.88</span><span class="pm-kpi-label">Schedule performance index</span></div>
+                      <div class="pm-kpi"><span class="pm-kpi-num" data-target="51.2" data-decimals="1" data-suffix="%">0%</span><span class="pm-kpi-label">Actual to date</span></div>
+                      <div class="pm-kpi"><span class="pm-kpi-num" data-target="58.4" data-decimals="1" data-suffix="%">0%</span><span class="pm-kpi-label">Planned to date</span></div>
+                      <div class="pm-kpi"><span class="pm-kpi-num amber" data-target="0.88" data-decimals="2">0.00</span><span class="pm-kpi-label">Schedule performance index</span></div>
                     </div>
-                    <p class="pm-chart-title">Cumulative progress — planned vs. actual vs. forecast</p>
-                    <div class="pm-legend">
-                      <span class="pm-legend-item"><span class="pm-legend-swatch dashed"></span>Planned</span>
-                      <span class="pm-legend-item"><span class="pm-legend-swatch"></span>Actual</span>
-                      <span class="pm-legend-item"><span class="pm-legend-swatch dotted"></span>Forecast</span>
+                    <div class="pm-grid">
+                      <div class="pm-widget">
+                        <p class="pm-chart-title">Cumulative progress — planned vs. actual vs. forecast</p>
+                        <div class="pm-legend">
+                          <span class="pm-legend-item"><span class="pm-legend-swatch dashed"></span>Planned</span>
+                          <span class="pm-legend-item"><span class="pm-legend-swatch"></span>Actual</span>
+                          <span class="pm-legend-item"><span class="pm-legend-swatch dotted"></span>Forecast</span>
+                        </div>
+                        <svg viewBox="0 0 560 200" width="100%" height="200" role="img" aria-label="Cumulative planned versus actual progress chart">
+                          <line x1="35" y1="15" x2="540" y2="15" stroke="#E9EBE6" stroke-width="1"/>
+                          <line x1="35" y1="55" x2="540" y2="55" stroke="#E9EBE6" stroke-width="1"/>
+                          <line x1="35" y1="95" x2="540" y2="95" stroke="#E9EBE6" stroke-width="1"/>
+                          <line x1="35" y1="135" x2="540" y2="135" stroke="#E9EBE6" stroke-width="1"/>
+                          <line x1="35" y1="165" x2="540" y2="165" stroke="#D7DBD4" stroke-width="1"/>
+                          <text x="27" y="19" font-family="IBM Plex Mono" font-size="9" fill="#565F6B" text-anchor="end">100%</text>
+                          <text x="27" y="99" font-family="IBM Plex Mono" font-size="9" fill="#565F6B" text-anchor="end">50%</text>
+                          <text x="27" y="169" font-family="IBM Plex Mono" font-size="9" fill="#565F6B" text-anchor="end">0%</text>
+                          <line x1="432" y1="15" x2="432" y2="165" stroke="#B9C0B8" stroke-width="1" stroke-dasharray="2 3"/>
+                          <text x="432" y="184" font-family="IBM Plex Mono" font-size="9" fill="#565F6B" text-anchor="middle">Today</text>
+                          <text x="35" y="184" font-family="IBM Plex Mono" font-size="9" fill="#565F6B" text-anchor="start">Jan-25</text>
+                          <text x="540" y="184" font-family="IBM Plex Mono" font-size="9" fill="#565F6B" text-anchor="end">Apr-27</text>
+                          <polyline points="35,165 140,133 240,102 340,80 432,73 540,18" fill="none" stroke="#B9C0B8" stroke-width="2" stroke-dasharray="5 4" stroke-linecap="round" stroke-linejoin="round"/>
+                          <polyline points="35,165 140,141 240,113 340,95 432,83" fill="none" stroke="#0E6B64" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                          <polyline points="432,83 485,52 540,26" fill="none" stroke="#0E6B64" stroke-width="2" stroke-dasharray="1 4" stroke-linecap="round" stroke-linejoin="round"/>
+                          <circle cx="432" cy="83" r="4" fill="#0E6B64"/>
+                          <text x="440" y="79" font-family="IBM Plex Mono" font-size="11" fill="#0E6B64" font-weight="600">51.2%</text>
+                          <text x="440" y="68" font-family="IBM Plex Mono" font-size="11" fill="#7A8289">58.4%</text>
+                        </svg>
+                      </div>
+                      <div class="pm-widget pm-ring-wrap">
+                        <p class="pm-chart-title">SPI</p>
+                        <svg class="pm-ring-svg" viewBox="0 0 120 120">
+                          <circle cx="60" cy="60" r="50" fill="none" stroke="#E9EBE6" stroke-width="14"/>
+                          <circle cx="60" cy="60" r="50" fill="none" stroke="#B8752B" stroke-width="14" stroke-linecap="round"
+                            stroke-dasharray="314.16" stroke-dashoffset="37.7" transform="rotate(-90 60 60)"/>
+                          <text x="60" y="66" text-anchor="middle" class="pm-ring-value">0.88</text>
+                        </svg>
+                        <p class="pm-ring-caption">Under 1.0 means the program is behind pace.</p>
+                      </div>
                     </div>
-                    <svg viewBox="0 0 600 220" width="100%" height="220" role="img" aria-label="Cumulative planned versus actual progress chart">
-                      <line x1="40" y1="20" x2="580" y2="20" stroke="#E9EBE6" stroke-width="1"/>
-                      <line x1="40" y1="60" x2="580" y2="60" stroke="#E9EBE6" stroke-width="1"/>
-                      <line x1="40" y1="100" x2="580" y2="100" stroke="#E9EBE6" stroke-width="1"/>
-                      <line x1="40" y1="140" x2="580" y2="140" stroke="#E9EBE6" stroke-width="1"/>
-                      <line x1="40" y1="180" x2="580" y2="180" stroke="#D7DBD4" stroke-width="1"/>
-                      <text x="32" y="24" font-family="IBM Plex Mono" font-size="9" fill="#565F6B" text-anchor="end">100%</text>
-                      <text x="32" y="104" font-family="IBM Plex Mono" font-size="9" fill="#565F6B" text-anchor="end">50%</text>
-                      <text x="32" y="184" font-family="IBM Plex Mono" font-size="9" fill="#565F6B" text-anchor="end">0%</text>
-                      <line x1="467" y1="20" x2="467" y2="180" stroke="#B9C0B8" stroke-width="1" stroke-dasharray="2 3"/>
-                      <text x="467" y="200" font-family="IBM Plex Mono" font-size="9" fill="#565F6B" text-anchor="middle">Today</text>
-                      <text x="40" y="200" font-family="IBM Plex Mono" font-size="9" fill="#565F6B" text-anchor="start">Jan-25</text>
-                      <text x="580" y="200" font-family="IBM Plex Mono" font-size="9" fill="#565F6B" text-anchor="end">Apr-27</text>
-                      <polyline points="40,180 150,150 253,120 360,100 467,87 580,28" fill="none" stroke="#B9C0B8" stroke-width="2" stroke-dasharray="5 4" stroke-linecap="round" stroke-linejoin="round"/>
-                      <polyline points="40,180 150,158 253,132 360,112 467,98" fill="none" stroke="#0E6B64" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                      <polyline points="467,98 525,65 580,36" fill="none" stroke="#0E6B64" stroke-width="2" stroke-dasharray="1 4" stroke-linecap="round" stroke-linejoin="round"/>
-                      <circle cx="467" cy="98" r="4" fill="#0E6B64"/>
-                      <text x="475" y="94" font-family="IBM Plex Mono" font-size="11" fill="#0E6B64" font-weight="600">51.2%</text>
-                      <text x="475" y="83" font-family="IBM Plex Mono" font-size="11" fill="#7A8289">58.4%</text>
-                    </svg>
-                    <p class="pm-note">The S-curve is the schedule's honesty check — planned progress against what's actually complete. An SPI under 1.0 (<strong>0.88 here</strong>) means the program is running behind pace, and the dotted line shows where it's headed if nothing changes.</p>
+                    <p class="pm-note"><svg class="pm-note-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 7.2H22l-6 4.4 2.3 7.1L12 16.3l-6.3 4.4 2.3-7.1-6-4.4h7.6z"/></svg><span>An SPI of <strong>0.88</strong> sounds abstract until you translate it: for every day of planned progress, this program is completing about 0.88 days worth of it. Small enough to recover from if caught early — that's the whole argument for keeping this curve visible instead of only checking the finish date.</span></p>
                   </div>
                 </div>
               </figure>
@@ -574,23 +603,47 @@
               <!-- 03 Task Management -->
               <figure class="dash-view" id="dview3">
                 <div class="dash-view-frame">
-                  <div class="dash-view-chrome"><div class="dash-dots"><span></span><span></span><span></span></div><span class="dash-view-chrome-label">Task Management</span></div>
+                  <div class="dash-view-chrome">
+                    <div class="dash-view-chrome-left"><div class="dash-dots"><span></span><span></span><span></span></div><span class="dash-view-chrome-label">Task Management</span></div>
+                    <span class="dash-view-live"><span class="live-dot"></span>Updated weekly</span>
+                  </div>
                   <div class="pm-panel">
                     <div class="pm-kpis">
-                      <div class="pm-kpi"><span class="pm-kpi-num">742</span><span class="pm-kpi-label">Total tasks</span></div>
-                      <div class="pm-kpi"><span class="pm-kpi-num amber">55</span><span class="pm-kpi-label">Overdue</span></div>
-                      <div class="pm-kpi"><span class="pm-kpi-num">231</span><span class="pm-kpi-label">In progress</span></div>
+                      <div class="pm-kpi"><span class="pm-kpi-num" data-target="742">0</span><span class="pm-kpi-label">Total tasks</span></div>
+                      <div class="pm-kpi"><span class="pm-kpi-num amber" data-target="55">0</span><span class="pm-kpi-label">Overdue</span></div>
+                      <div class="pm-kpi"><span class="pm-kpi-num" data-target="231">0</span><span class="pm-kpi-label">In progress</span></div>
                     </div>
-                    <p class="pm-chart-title">Tasks by document status</p>
-                    <div class="pm-bars">
-                      <div class="pm-bar-row"><span class="pm-bar-label">Draft</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:100%"></div></div><span class="pm-bar-value">289</span></div>
-                      <div class="pm-bar-row"><span class="pm-bar-label">Review</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:48%"></div></div><span class="pm-bar-value">140</span></div>
-                      <div class="pm-bar-row"><span class="pm-bar-label">Approved</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:37%"></div></div><span class="pm-bar-value">108</span></div>
-                      <div class="pm-bar-row"><span class="pm-bar-label">For Construction</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:29%"></div></div><span class="pm-bar-value">85</span></div>
-                      <div class="pm-bar-row"><span class="pm-bar-label">For Approval</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:24%"></div></div><span class="pm-bar-value">68</span></div>
-                      <div class="pm-bar-row"><span class="pm-bar-label">Closed &amp; other</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:18%"></div></div><span class="pm-bar-value">52</span></div>
+                    <div class="pm-grid">
+                      <div class="pm-widget">
+                        <p class="pm-chart-title">Tasks by document status</p>
+                        <div class="pm-bars">
+                          <div class="pm-bar-row"><span class="pm-bar-label">Draft</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:100%"></div></div><span class="pm-bar-value">289</span></div>
+                          <div class="pm-bar-row"><span class="pm-bar-label">Review</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:48%;animation-delay:.05s"></div></div><span class="pm-bar-value">140</span></div>
+                          <div class="pm-bar-row"><span class="pm-bar-label">Approved</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:37%;animation-delay:.1s"></div></div><span class="pm-bar-value">108</span></div>
+                          <div class="pm-bar-row"><span class="pm-bar-label">For Construction</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:29%;animation-delay:.15s"></div></div><span class="pm-bar-value">85</span></div>
+                          <div class="pm-bar-row"><span class="pm-bar-label">For Approval</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:24%;animation-delay:.2s"></div></div><span class="pm-bar-value">68</span></div>
+                          <div class="pm-bar-row"><span class="pm-bar-label">Closed &amp; other</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:18%;animation-delay:.25s"></div></div><span class="pm-bar-value">52</span></div>
+                        </div>
+                      </div>
+                      <div class="pm-widget">
+                        <p class="pm-chart-title">Backlog composition</p>
+                        <div class="pm-donut-wrap">
+                          <svg class="pm-donut-svg" viewBox="0 0 120 120">
+                            <circle cx="60" cy="60" r="50" fill="none" stroke="#0E6B64" stroke-width="18" stroke-dasharray="184.18 314.16" stroke-dashoffset="0" transform="rotate(-90 60 60)"/>
+                            <circle cx="60" cy="60" r="50" fill="none" stroke="#4C9E6E" stroke-width="18" stroke-dasharray="97.8 314.16" stroke-dashoffset="-184.18" transform="rotate(-90 60 60)"/>
+                            <circle cx="60" cy="60" r="50" fill="none" stroke="#B8752B" stroke-width="18" stroke-dasharray="23.29 314.16" stroke-dashoffset="-281.98" transform="rotate(-90 60 60)"/>
+                            <circle cx="60" cy="60" r="50" fill="none" stroke="#B9C0B8" stroke-width="18" stroke-dasharray="8.89 314.16" stroke-dashoffset="-305.27" transform="rotate(-90 60 60)"/>
+                          </svg>
+                          <div class="pm-donut-legend">
+                            <span class="pm-donut-legend-item"><span class="pm-donut-swatch" style="background:#0E6B64"></span>Not started <strong>59%</strong></span>
+                            <span class="pm-donut-legend-item"><span class="pm-donut-swatch" style="background:#4C9E6E"></span>In progress <strong>31%</strong></span>
+                            <span class="pm-donut-legend-item"><span class="pm-donut-swatch" style="background:#B8752B"></span>Overdue <strong>7%</strong></span>
+                            <span class="pm-donut-legend-item"><span class="pm-donut-swatch" style="background:#B9C0B8"></span>Completed <strong>3%</strong></span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <p class="pm-note">Every task carries a status from Draft through Closed. This view shows where the current backlog of 742 tasks actually sits in that pipeline — useful for spotting a pile-up (like <strong>Review</strong>, second-largest here) before it slows the rest of the program down.</p>
+                    <p class="pm-note"><svg class="pm-note-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 7.2H22l-6 4.4 2.3 7.1L12 16.3l-6.3 4.4 2.3-7.1-6-4.4h7.6z"/></svg><span>742 tasks is too many for a status meeting to cover one by one, so this page answers a narrower question: where is the pipeline actually clogged? <strong>Review</strong> is holding almost half as many tasks as Draft — usually a sign that reviewers are underwater, or the review bar itself needs a second look.</span></p>
                   </div>
                 </div>
               </figure>
@@ -598,22 +651,46 @@
               <!-- 04 RFIs & Action Items -->
               <figure class="dash-view" id="dview4">
                 <div class="dash-view-frame">
-                  <div class="dash-view-chrome"><div class="dash-dots"><span></span><span></span><span></span></div><span class="dash-view-chrome-label">Action Items</span></div>
+                  <div class="dash-view-chrome">
+                    <div class="dash-view-chrome-left"><div class="dash-dots"><span></span><span></span><span></span></div><span class="dash-view-chrome-label">Action Items</span></div>
+                    <span class="dash-view-live"><span class="live-dot"></span>Updated weekly</span>
+                  </div>
                   <div class="pm-panel">
                     <div class="pm-kpis">
-                      <div class="pm-kpi"><span class="pm-kpi-num">88</span><span class="pm-kpi-label">Total items</span></div>
-                      <div class="pm-kpi"><span class="pm-kpi-num amber">47</span><span class="pm-kpi-label">Overdue</span></div>
-                      <div class="pm-kpi"><span class="pm-kpi-num">22</span><span class="pm-kpi-label">Open action items</span></div>
+                      <div class="pm-kpi"><span class="pm-kpi-num" data-target="88">0</span><span class="pm-kpi-label">Total items</span></div>
+                      <div class="pm-kpi"><span class="pm-kpi-num amber" data-target="47">0</span><span class="pm-kpi-label">Overdue</span></div>
+                      <div class="pm-kpi"><span class="pm-kpi-num" data-target="22">0</span><span class="pm-kpi-label">Open action items</span></div>
                     </div>
-                    <p class="pm-chart-title">Open items by responding party</p>
-                    <div class="pm-bars">
-                      <div class="pm-bar-row"><span class="pm-bar-label">Vantage MEP</span><div class="pm-bar-track"><div class="pm-bar-fill amber" style="width:100%"></div></div><span class="pm-bar-value">9</span></div>
-                      <div class="pm-bar-row"><span class="pm-bar-label">Coastline Steel</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:78%"></div></div><span class="pm-bar-value">7</span></div>
-                      <div class="pm-bar-row"><span class="pm-bar-label">Turnkey Fitout</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:56%"></div></div><span class="pm-bar-value">5</span></div>
-                      <div class="pm-bar-row"><span class="pm-bar-label">Aurora Glazing</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:44%"></div></div><span class="pm-bar-value">4</span></div>
-                      <div class="pm-bar-row"><span class="pm-bar-label">Prime Logistics</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:44%"></div></div><span class="pm-bar-value">4</span></div>
+                    <div class="pm-grid">
+                      <div class="pm-widget">
+                        <p class="pm-chart-title">Open items by responding party</p>
+                        <div class="pm-bars">
+                          <div class="pm-bar-row"><span class="pm-bar-label">Vantage MEP</span><div class="pm-bar-track"><div class="pm-bar-fill amber" style="width:100%"></div></div><span class="pm-bar-value">9</span></div>
+                          <div class="pm-bar-row"><span class="pm-bar-label">Coastline Steel</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:78%;animation-delay:.05s"></div></div><span class="pm-bar-value">7</span></div>
+                          <div class="pm-bar-row"><span class="pm-bar-label">Turnkey Fitout</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:56%;animation-delay:.1s"></div></div><span class="pm-bar-value">5</span></div>
+                          <div class="pm-bar-row"><span class="pm-bar-label">Aurora Glazing</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:44%;animation-delay:.15s"></div></div><span class="pm-bar-value">4</span></div>
+                          <div class="pm-bar-row"><span class="pm-bar-label">Prime Logistics</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:44%;animation-delay:.2s"></div></div><span class="pm-bar-value">4</span></div>
+                        </div>
+                      </div>
+                      <div class="pm-widget">
+                        <p class="pm-chart-title">Items by status</p>
+                        <div class="pm-donut-wrap">
+                          <svg class="pm-donut-svg" viewBox="0 0 120 120">
+                            <circle cx="60" cy="60" r="50" fill="none" stroke="#0E6B64" stroke-width="18" stroke-dasharray="160.91 314.16" stroke-dashoffset="0" transform="rotate(-90 60 60)"/>
+                            <circle cx="60" cy="60" r="50" fill="none" stroke="#4C9E6E" stroke-width="18" stroke-dasharray="91.95 314.16" stroke-dashoffset="-160.91" transform="rotate(-90 60 60)"/>
+                            <circle cx="60" cy="60" r="50" fill="none" stroke="#254776" stroke-width="18" stroke-dasharray="38.31 314.16" stroke-dashoffset="-252.86" transform="rotate(-90 60 60)"/>
+                            <circle cx="60" cy="60" r="50" fill="none" stroke="#B9C0B8" stroke-width="18" stroke-dasharray="22.99 314.16" stroke-dashoffset="-291.17" transform="rotate(-90 60 60)"/>
+                          </svg>
+                          <div class="pm-donut-legend">
+                            <span class="pm-donut-legend-item"><span class="pm-donut-swatch" style="background:#0E6B64"></span>In progress <strong>51%</strong></span>
+                            <span class="pm-donut-legend-item"><span class="pm-donut-swatch" style="background:#4C9E6E"></span>Complete <strong>29%</strong></span>
+                            <span class="pm-donut-legend-item"><span class="pm-donut-swatch" style="background:#254776"></span>Open <strong>12%</strong></span>
+                            <span class="pm-donut-legend-item"><span class="pm-donut-swatch" style="background:#B9C0B8"></span>On hold <strong>7%</strong></span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <p class="pm-note">RFIs and action items are only useful if someone owns them. This view sorts every open item by the party responsible for answering it, so a slow responder like <strong>Vantage MEP, in amber</strong>, shows up as a stalled bar — not a buried row in a spreadsheet.</p>
+                    <p class="pm-note"><svg class="pm-note-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 7.2H22l-6 4.4 2.3 7.1L12 16.3l-6.3 4.4 2.3-7.1-6-4.4h7.6z"/></svg><span>An RFI that sits unanswered doesn't just delay one task — it usually blocks whatever depends on the answer. Sorting by who owes the response, instead of by date, makes the accountable party impossible to miss. <strong>Vantage MEP</strong> is currently carrying the largest share.</span></p>
                   </div>
                 </div>
               </figure>
@@ -621,21 +698,43 @@
               <!-- 05 Risk Register -->
               <figure class="dash-view" id="dview5">
                 <div class="dash-view-frame">
-                  <div class="dash-view-chrome"><div class="dash-dots"><span></span><span></span><span></span></div><span class="dash-view-chrome-label">Risk Register</span></div>
+                  <div class="dash-view-chrome">
+                    <div class="dash-view-chrome-left"><div class="dash-dots"><span></span><span></span><span></span></div><span class="dash-view-chrome-label">Risk Register</span></div>
+                    <span class="dash-view-live"><span class="live-dot"></span>Updated weekly</span>
+                  </div>
                   <div class="pm-panel">
                     <div class="pm-kpis">
-                      <div class="pm-kpi"><span class="pm-kpi-num">132</span><span class="pm-kpi-label">Total risks</span></div>
-                      <div class="pm-kpi"><span class="pm-kpi-num amber">41</span><span class="pm-kpi-label">Overdue</span></div>
-                      <div class="pm-kpi"><span class="pm-kpi-num">6.1<span style="font-size:.75rem">/25</span></span><span class="pm-kpi-label">Avg. risk score</span></div>
+                      <div class="pm-kpi"><span class="pm-kpi-num" data-target="132">0</span><span class="pm-kpi-label">Total risks</span></div>
+                      <div class="pm-kpi"><span class="pm-kpi-num amber" data-target="41">0</span><span class="pm-kpi-label">Overdue</span></div>
+                      <div class="pm-kpi"><span class="pm-kpi-num" data-target="6.1" data-decimals="1" data-suffix="/25">0.0</span><span class="pm-kpi-label">Avg. risk score</span></div>
                     </div>
                     <p class="pm-chart-title">Risk severity breakdown</p>
-                    <div class="pm-seg-bar">
+                    <div class="pm-seg-bar" style="margin-bottom:1.75rem">
                       <div class="pm-seg pm-seg-medium" style="width:36%"><span class="pm-seg-label">Medium</span><span class="pm-seg-value">38</span></div>
-                      <div class="pm-seg pm-seg-high" style="width:26%"><span class="pm-seg-label">High</span><span class="pm-seg-value">27</span></div>
-                      <div class="pm-seg pm-seg-low" style="width:23%"><span class="pm-seg-label">Low</span><span class="pm-seg-value">24</span></div>
-                      <div class="pm-seg pm-seg-critical" style="width:15%"><span class="pm-seg-label">Critical</span><span class="pm-seg-value">16</span></div>
+                      <div class="pm-seg pm-seg-high" style="width:26%;animation-delay:.05s"><span class="pm-seg-label">High</span><span class="pm-seg-value">27</span></div>
+                      <div class="pm-seg pm-seg-low" style="width:23%;animation-delay:.1s"><span class="pm-seg-label">Low</span><span class="pm-seg-value">24</span></div>
+                      <div class="pm-seg pm-seg-critical" style="width:15%;animation-delay:.15s"><span class="pm-seg-label">Critical</span><span class="pm-seg-value">16</span></div>
                     </div>
-                    <p class="pm-note">Every risk is scored by severity and assigned an owner and a response strategy — avoid, mitigate, transfer, or accept. This view keeps the <strong>16 critical risks</strong> visible up front rather than letting them get lost among 132 total entries.</p>
+                    <div class="pm-widget">
+                      <p class="pm-chart-title">Response strategy</p>
+                      <div class="pm-donut-wrap">
+                        <svg class="pm-donut-svg" viewBox="0 0 120 120">
+                          <circle cx="60" cy="60" r="50" fill="none" stroke="#0A4C47" stroke-width="18" stroke-dasharray="114.24 314.16" stroke-dashoffset="0" transform="rotate(-90 60 60)"/>
+                          <circle cx="60" cy="60" r="50" fill="none" stroke="#0E6B64" stroke-width="18" stroke-dasharray="80.92 314.16" stroke-dashoffset="-114.24" transform="rotate(-90 60 60)"/>
+                          <circle cx="60" cy="60" r="50" fill="none" stroke="#254776" stroke-width="18" stroke-dasharray="66.64 314.16" stroke-dashoffset="-195.16" transform="rotate(-90 60 60)"/>
+                          <circle cx="60" cy="60" r="50" fill="none" stroke="#B9C0B8" stroke-width="18" stroke-dasharray="35.7 314.16" stroke-dashoffset="-261.8" transform="rotate(-90 60 60)"/>
+                          <circle cx="60" cy="60" r="50" fill="none" stroke="#B8752B" stroke-width="18" stroke-dasharray="16.66 314.16" stroke-dashoffset="-297.5" transform="rotate(-90 60 60)"/>
+                        </svg>
+                        <div class="pm-donut-legend">
+                          <span class="pm-donut-legend-item"><span class="pm-donut-swatch" style="background:#0A4C47"></span>Mitigate <strong>36%</strong></span>
+                          <span class="pm-donut-legend-item"><span class="pm-donut-swatch" style="background:#0E6B64"></span>Avoid <strong>26%</strong></span>
+                          <span class="pm-donut-legend-item"><span class="pm-donut-swatch" style="background:#254776"></span>Escalate <strong>21%</strong></span>
+                          <span class="pm-donut-legend-item"><span class="pm-donut-swatch" style="background:#B9C0B8"></span>Transfer <strong>11%</strong></span>
+                          <span class="pm-donut-legend-item"><span class="pm-donut-swatch" style="background:#B8752B"></span>Accept <strong>5%</strong></span>
+                        </div>
+                      </div>
+                    </div>
+                    <p class="pm-note" style="margin-top:1.5rem"><svg class="pm-note-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 7.2H22l-6 4.4 2.3 7.1L12 16.3l-6.3 4.4 2.3-7.1-6-4.4h7.6z"/></svg><span>A register-style table makes every risk look equally important, mostly because they're all in the same list. Separating severity by color fixes that at a glance — the <strong>16 critical risks</strong> sit apart from the other 116, and the team is leaning on mitigation over just accepting exposure, which is generally the healthier posture.</span></p>
                   </div>
                 </div>
               </figure>
@@ -643,20 +742,33 @@
               <!-- 06 Change Order Certificates -->
               <figure class="dash-view" id="dview6">
                 <div class="dash-view-frame">
-                  <div class="dash-view-chrome"><div class="dash-dots"><span></span><span></span><span></span></div><span class="dash-view-chrome-label">Change Orders</span></div>
+                  <div class="dash-view-chrome">
+                    <div class="dash-view-chrome-left"><div class="dash-dots"><span></span><span></span><span></span></div><span class="dash-view-chrome-label">Change Orders</span></div>
+                    <span class="dash-view-live"><span class="live-dot"></span>Updated weekly</span>
+                  </div>
                   <div class="pm-panel">
                     <div class="pm-kpis">
                       <div class="pm-kpi"><span class="pm-kpi-num">$2.1M</span><span class="pm-kpi-label">Net value</span></div>
-                      <div class="pm-kpi"><span class="pm-kpi-num">214</span><span class="pm-kpi-label">Certificates</span></div>
-                      <div class="pm-kpi"><span class="pm-kpi-num">4.2 days</span><span class="pm-kpi-label">Avg. approval time</span></div>
+                      <div class="pm-kpi"><span class="pm-kpi-num" data-target="214">0</span><span class="pm-kpi-label">Certificates</span></div>
+                      <div class="pm-kpi"><span class="pm-kpi-num" data-target="4.2" data-decimals="1" data-suffix=" days">0 days</span><span class="pm-kpi-label">Avg. approval time</span></div>
                     </div>
                     <p class="pm-chart-title">Certificates by approval time</p>
-                    <div class="pm-seg-bar">
+                    <div class="pm-seg-bar" style="margin-bottom:1.75rem">
                       <div class="pm-seg pm-seg-low" style="width:67%"><span class="pm-seg-label">0–3 days</span><span class="pm-seg-value">301</span></div>
-                      <div class="pm-seg pm-seg-medium" style="width:20%"><span class="pm-seg-label">4–7 days</span><span class="pm-seg-value">92</span></div>
-                      <div class="pm-seg pm-seg-critical" style="width:13%"><span class="pm-seg-label">8+ days</span><span class="pm-seg-value">57</span></div>
+                      <div class="pm-seg pm-seg-medium" style="width:20%;animation-delay:.05s"><span class="pm-seg-label">4–7 days</span><span class="pm-seg-value">92</span></div>
+                      <div class="pm-seg pm-seg-critical" style="width:13%;animation-delay:.1s"><span class="pm-seg-label">8+ days</span><span class="pm-seg-value">57</span></div>
                     </div>
-                    <p class="pm-note">Every certificate is timestamped from submission to approval. Grouping them into aging buckets makes the bottleneck obvious at a glance — most clear within three days, but the <strong>57 sitting past a week</strong> are the ones worth a follow-up call.</p>
+                    <div class="pm-widget pm-ring-wrap" style="max-width:260px">
+                      <p class="pm-chart-title">On-time approval rate</p>
+                      <svg class="pm-ring-svg" viewBox="0 0 120 120">
+                        <circle cx="60" cy="60" r="50" fill="none" stroke="#E9EBE6" stroke-width="14"/>
+                        <circle cx="60" cy="60" r="50" fill="none" stroke="#0E6B64" stroke-width="14" stroke-linecap="round"
+                          stroke-dasharray="314.16" stroke-dashoffset="40.84" transform="rotate(-90 60 60)"/>
+                        <text x="60" y="66" text-anchor="middle" class="pm-ring-value">87%</text>
+                      </svg>
+                      <p class="pm-ring-caption">Approved within 7 days of submission.</p>
+                    </div>
+                    <p class="pm-note" style="margin-top:1.5rem"><svg class="pm-note-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 7.2H22l-6 4.4 2.3 7.1L12 16.3l-6.3 4.4 2.3-7.1-6-4.4h7.6z"/></svg><span>$2.1M moving through approval is fine as a number — the useful question is how long certificates sit before someone signs off. Most clear within three days; the <strong>57 that took more than a week</strong> are worth pulling up by contractor, because a slow approver on one is usually slow on the next ten.</span></p>
                   </div>
                 </div>
               </figure>
@@ -664,22 +776,46 @@
               <!-- 07 Invoice & Spend -->
               <figure class="dash-view" id="dview7">
                 <div class="dash-view-frame">
-                  <div class="dash-view-chrome"><div class="dash-dots"><span></span><span></span><span></span></div><span class="dash-view-chrome-label">Invoice &amp; Spend</span></div>
+                  <div class="dash-view-chrome">
+                    <div class="dash-view-chrome-left"><div class="dash-dots"><span></span><span></span><span></span></div><span class="dash-view-chrome-label">Invoice &amp; Spend</span></div>
+                    <span class="dash-view-live"><span class="live-dot"></span>Updated weekly</span>
+                  </div>
                   <div class="pm-panel">
                     <div class="pm-kpis">
-                      <div class="pm-kpi"><span class="pm-kpi-num">2,486</span><span class="pm-kpi-label">Invoices</span></div>
-                      <div class="pm-kpi"><span class="pm-kpi-num">$59M</span><span class="pm-kpi-label">Net spend</span></div>
-                      <div class="pm-kpi"><span class="pm-kpi-num">57</span><span class="pm-kpi-label">Vendors</span></div>
+                      <div class="pm-kpi"><span class="pm-kpi-num" data-target="2486" data-comma="true">0</span><span class="pm-kpi-label">Invoices</span></div>
+                      <div class="pm-kpi"><span class="pm-kpi-num" data-target="59" data-prefix="$" data-suffix="M">$0M</span><span class="pm-kpi-label">Net spend</span></div>
+                      <div class="pm-kpi"><span class="pm-kpi-num" data-target="57">0</span><span class="pm-kpi-label">Vendors</span></div>
                     </div>
-                    <p class="pm-chart-title">Net spend by vendor</p>
-                    <div class="pm-bars">
-                      <div class="pm-bar-row"><span class="pm-bar-label">Vantage MEP</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:100%"></div></div><span class="pm-bar-value">$9.2M</span></div>
-                      <div class="pm-bar-row"><span class="pm-bar-label">Coastline Steel</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:87%"></div></div><span class="pm-bar-value">$8.0M</span></div>
-                      <div class="pm-bar-row"><span class="pm-bar-label">Turnkey Fitout</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:71%"></div></div><span class="pm-bar-value">$6.5M</span></div>
-                      <div class="pm-bar-row"><span class="pm-bar-label">Aurora Glazing</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:62%"></div></div><span class="pm-bar-value">$5.7M</span></div>
-                      <div class="pm-bar-row"><span class="pm-bar-label">Prime Logistics</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:54%"></div></div><span class="pm-bar-value">$5.0M</span></div>
+                    <div class="pm-grid">
+                      <div class="pm-widget">
+                        <p class="pm-chart-title">Net spend by vendor</p>
+                        <div class="pm-bars">
+                          <div class="pm-bar-row"><span class="pm-bar-label">Vantage MEP</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:100%"></div></div><span class="pm-bar-value">$9.2M</span></div>
+                          <div class="pm-bar-row"><span class="pm-bar-label">Coastline Steel</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:87%;animation-delay:.05s"></div></div><span class="pm-bar-value">$8.0M</span></div>
+                          <div class="pm-bar-row"><span class="pm-bar-label">Turnkey Fitout</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:71%;animation-delay:.1s"></div></div><span class="pm-bar-value">$6.5M</span></div>
+                          <div class="pm-bar-row"><span class="pm-bar-label">Aurora Glazing</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:62%;animation-delay:.15s"></div></div><span class="pm-bar-value">$5.7M</span></div>
+                          <div class="pm-bar-row"><span class="pm-bar-label">Prime Logistics</span><div class="pm-bar-track"><div class="pm-bar-fill" style="width:54%;animation-delay:.2s"></div></div><span class="pm-bar-value">$5.0M</span></div>
+                        </div>
+                      </div>
+                      <div class="pm-widget">
+                        <p class="pm-chart-title">Spend by cost category</p>
+                        <div class="pm-donut-wrap">
+                          <svg class="pm-donut-svg" viewBox="0 0 120 120">
+                            <circle cx="60" cy="60" r="50" fill="none" stroke="#0E6B64" stroke-width="18" stroke-dasharray="172.79 314.16" stroke-dashoffset="0" transform="rotate(-90 60 60)"/>
+                            <circle cx="60" cy="60" r="50" fill="none" stroke="#254776" stroke-width="18" stroke-dasharray="56.55 314.16" stroke-dashoffset="-172.79" transform="rotate(-90 60 60)"/>
+                            <circle cx="60" cy="60" r="50" fill="none" stroke="#B8752B" stroke-width="18" stroke-dasharray="37.7 314.16" stroke-dashoffset="-229.34" transform="rotate(-90 60 60)"/>
+                            <circle cx="60" cy="60" r="50" fill="none" stroke="#B9C0B8" stroke-width="18" stroke-dasharray="47.12 314.16" stroke-dashoffset="-267.04" transform="rotate(-90 60 60)"/>
+                          </svg>
+                          <div class="pm-donut-legend">
+                            <span class="pm-donut-legend-item"><span class="pm-donut-swatch" style="background:#0E6B64"></span>Civil <strong>55%</strong></span>
+                            <span class="pm-donut-legend-item"><span class="pm-donut-swatch" style="background:#254776"></span>MEP <strong>18%</strong></span>
+                            <span class="pm-donut-legend-item"><span class="pm-donut-swatch" style="background:#B8752B"></span>Structural <strong>12%</strong></span>
+                            <span class="pm-donut-legend-item"><span class="pm-donut-swatch" style="background:#B9C0B8"></span>Other <strong>15%</strong></span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <p class="pm-note">Total spend reconciles down to the vendor level, not just the project level. This is the view that catches a vendor whose invoiced total doesn't match what procurement expected — before it becomes a month-end surprise.</p>
+                    <p class="pm-note"><svg class="pm-note-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 7.2H22l-6 4.4 2.3 7.1L12 16.3l-6.3 4.4 2.3-7.1-6-4.4h7.6z"/></svg><span>Reconciling 2,486 invoices against $59M only means something if it's broken down far enough to catch a discrepancy — by vendor, not just by project total. <strong>Vantage MEP</strong> and <strong>Coastline Steel</strong> account for the largest share, which is the first place I'd check if a number ever looked off.</span></p>
                   </div>
                 </div>
               </figure>
@@ -737,6 +873,8 @@
   <script>
     document.getElementById('currentYear').textContent = new Date().getFullYear();
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // ---- scroll reveal ----
     if(!prefersReduced && 'IntersectionObserver' in window){
       const io = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
@@ -746,6 +884,72 @@
       document.querySelectorAll('.reveal').forEach(el => io.observe(el));
     } else {
       document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+    }
+
+    // ---- animated counters ----
+    function animateCount(el){
+      if(el.dataset.animated === 'true') return;
+      el.dataset.animated = 'true';
+      const target = parseFloat(el.dataset.target);
+      if(isNaN(target)){ return; }
+      const decimals = parseInt(el.dataset.decimals || '0', 10);
+      const prefix = el.dataset.prefix || '';
+      const suffix = el.dataset.suffix || '';
+      const comma = el.dataset.comma === 'true';
+      const pad = parseInt(el.dataset.pad || '0', 10);
+      if(prefersReduced){
+        el.textContent = prefix + formatVal(target, decimals, comma, pad) + suffix;
+        return;
+      }
+      const dur = 1000;
+      const start = performance.now();
+      function formatVal(v, d, c, p){
+        let s = v.toFixed(d);
+        if(c){ s = Number(s).toLocaleString(undefined,{minimumFractionDigits:d,maximumFractionDigits:d}); }
+        if(p > 0){ s = s.padStart(p, '0'); }
+        return s;
+      }
+      function frame(now){
+        const t = Math.min((now - start) / dur, 1);
+        const eased = 1 - Math.pow(1 - t, 3);
+        const val = target * eased;
+        el.textContent = prefix + formatVal(val, decimals, comma, pad) + suffix;
+        if(t < 1) requestAnimationFrame(frame);
+        else el.textContent = prefix + formatVal(target, decimals, comma, pad) + suffix;
+      }
+      requestAnimationFrame(frame);
+    }
+
+    const countObserver = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){ animateCount(entry.target); obs.unobserve(entry.target); }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.ledger-num[data-target], .dash-kpi-num[data-target]').forEach(el => countObserver.observe(el));
+
+    // ---- re-trigger KPI counters on dashboard tab switch ----
+    document.querySelectorAll('input[name="dtab"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        if(!radio.checked) return;
+        const viewId = 'dview' + radio.id.replace('dtab', '');
+        const view = document.getElementById(viewId);
+        if(view){
+          view.querySelectorAll('.pm-kpi-num[data-target]').forEach(el => { el.dataset.animated = 'false'; animateCount(el); });
+        }
+      });
+    });
+    // trigger first tab on load once it's in view
+    const firstView = document.getElementById('dview1');
+    if(firstView){
+      const firstObserver = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            firstView.querySelectorAll('.pm-kpi-num[data-target]').forEach(animateCount);
+            obs.disconnect();
+          }
+        });
+      }, { threshold: 0.2 });
+      firstObserver.observe(firstView);
     }
   </script>
 </body>
