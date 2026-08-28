@@ -215,13 +215,21 @@
   .dash-view-chrome-left{display:flex;align-items:center;gap:.6rem}
   .dash-view-chrome-label{font-family:var(--font-mono);font-size:.7rem;color:#C9D3E0;letter-spacing:.05em;text-transform:uppercase}
 
-  #dtab1:checked ~ .dash-tabs label[for="dtab1"],
-  #dtab2:checked ~ .dash-tabs label[for="dtab2"],
-  #dtab3:checked ~ .dash-tabs label[for="dtab3"]{background:var(--teal-wash);border-left-color:var(--teal)}
+#dtab1:checked ~ .dash-tabs label[for="dtab1"],
+#dtab2:checked ~ .dash-tabs label[for="dtab2"],
+#dtab3:checked ~ .dash-tabs label[for="dtab3"],
+#dtab4:checked ~ .dash-tabs label[for="dtab4"]{
+  background:var(--teal-wash);
+  border-left-color:var(--teal)
+}
   
-  #dtab1:checked ~ .dash-viewers #dview1,
-  #dtab2:checked ~ .dash-viewers #dview2,
-  #dtab3:checked ~ .dash-viewers #dview3{display:block;animation:pmFadeIn .5s var(--ease) both}
+#dtab1:checked ~ .dash-viewers #dview1,
+#dtab2:checked ~ .dash-viewers #dview2,
+#dtab3:checked ~ .dash-viewers #dview3,
+#dtab4:checked ~ .dash-viewers #dview4{
+  display:block;
+  animation:pmFadeIn .5s var(--ease) both
+}
 
   /* ---------- Contact & Footer ---------- */
   .contact-section{padding:8rem 0}
